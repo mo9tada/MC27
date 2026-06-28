@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-[#071526]/60">
         {children}
+        <Analytics />
         <Toaster />
       </body>
     </html>
