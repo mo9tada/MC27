@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Reservation {
+  id           String    @id @default(cuid())
+  name         String
+  email        String
+  phone        String
+  partySize    Int
+  date         DateTime
+  time         String
+  notes        String?
+  status       String    @default("pending") // pending | confirmed | cancelled | seated
+  otpCodeHash  String?
+  otpExpiresAt DateTime?
+  otpAttempts  Int       @default(0)
+  verified     Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+}
+
+model ContactMessage {
+  id        String    @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    String    @default("new") // new | answered
+  reply     String?
+  repliedAt DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model WheelSpin {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  prize     String
+  code      String   @unique
+  redeemed  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email, createdAt])
+}
+
+model WheelPrize {
+  id        String   @id @default(cuid())
+  label     String
+  weight    Int      @default(10)
+  color     String   @default("#163b66")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([order])
+}
+
+model Event {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  date        DateTime
+  location    String?
+  price       String?
+  imageUrl    String?
+  capacity    Int? // null = unlimited
+  published   Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+  attendees   EventAttendee[]
+
+  @@index([date])
+}
+
+model EventAttendee {
+  id        String   @id @default(cuid())
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name      String
+  email     String
+  createdAt DateTime @default(now())
+
+  @@unique([eventId, email])
+  @@index([eventId])
+}
