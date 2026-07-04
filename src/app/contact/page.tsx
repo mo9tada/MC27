@@ -31,11 +31,11 @@ export default function ContactPage() {
         >
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/80 backdrop-blur">
             <span className="size-2 rounded-full bg-[#c58d5a]" />
-            <span>MC27 Coffee — Q&A</span>
+            <span>MC27 Coffee — Questions</span>
           </div>
-          <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">Questions & answers</h1>
+          <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">Questions & réponses</h1>
           <p className="mt-3 text-white/70">
-            Ask us anything — opening hours, catering, private events. Our team replies by email.
+            Posez-nous toutes vos questions — horaires, traiteur, événements privés. Notre équipe répond par e-mail.
           </p>
         </motion.div>
 
@@ -45,10 +45,10 @@ export default function ContactPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
         <FloatPanel>
-          <p className="text-sm text-[#c58d5a]">We usually reply within a day</p>
+          <p className="text-sm text-[#c58d5a]">Nous répondons généralement sous 24 h</p>
           <h2 className="font-heading mt-1 flex items-center gap-2 text-xl text-white">
             <MessageCircleQuestion className="size-5 text-[#c58d5a]" />
-            Send us a message
+            Envoyez-nous un message
           </h2>
 
           <div className="mt-6">
@@ -68,8 +68,8 @@ export default function ContactPage() {
                 >
                   <CircleCheck className="size-10 text-emerald-400" />
                 </motion.span>
-                <p className="text-white">Thanks! Your message has been sent.</p>
-                <p className="text-sm text-white/70">We&apos;ll get back to you by email soon.</p>
+                <p className="text-white">Merci ! Votre message a bien été envoyé.</p>
+                <p className="text-sm text-white/70">Nous vous répondrons bientôt par e-mail.</p>
               </motion.div>
             ) : (
               <motion.form
@@ -82,15 +82,15 @@ export default function ContactPage() {
                 className="space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <Label htmlFor="name" className="text-white/80">Name</Label>
-                    <Input id="name" name="name" placeholder="Jane Doe" required />
+                    <Label htmlFor="name" className="text-white/80">Nom</Label>
+                    <Input id="name" name="name" placeholder="Jean Dupont" required />
                     {state?.fieldErrors?.name && (
                       <p className="text-xs text-red-300">{state.fieldErrors.name[0]}</p>
                     )}
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="email" className="text-white/80">Email</Label>
-                    <Input id="email" name="email" type="email" placeholder="jane@example.com" required />
+                    <Input id="email" name="email" type="email" placeholder="jean@exemple.com" required />
                     {state?.fieldErrors?.email && (
                       <p className="text-xs text-red-300">{state.fieldErrors.email[0]}</p>
                     )}
@@ -98,8 +98,8 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label htmlFor="subject" className="text-white/80">Subject</Label>
-                  <Input id="subject" name="subject" placeholder="Catering for a private event" required />
+                  <Label htmlFor="subject" className="text-white/80">Sujet</Label>
+                  <Input id="subject" name="subject" placeholder="Traiteur pour un événement privé" required />
                   {state?.fieldErrors?.subject && (
                     <p className="text-xs text-red-300">{state.fieldErrors.subject[0]}</p>
                   )}
@@ -107,7 +107,7 @@ export default function ContactPage() {
 
                 <div className="space-y-1.5">
                   <Label htmlFor="message" className="text-white/80">Message</Label>
-                  <Textarea id="message" name="message" rows={5} placeholder="How can we help?" required />
+                  <Textarea id="message" name="message" rows={5} placeholder="Comment pouvons-nous vous aider ?" required />
                   {state?.fieldErrors?.message && (
                     <p className="text-xs text-red-300">{state.fieldErrors.message[0]}</p>
                   )}
@@ -116,7 +116,7 @@ export default function ContactPage() {
                 {state?.error && <p className="text-sm text-red-300">{state.error}</p>}
 
                 <Button type="submit" disabled={isPending} className="w-full bg-[#163b66] text-white hover:bg-[#102c4e]">
-                  {isPending ? "Sending..." : "Send message"}
+                  {isPending ? "Envoi..." : "Envoyer le message"}
                 </Button>
               </motion.form>
             )}

@@ -16,7 +16,7 @@ export async function adminLogin(
   const isValid = hash ? await bcrypt.compare(password, hash) : false;
 
   if (!isValid) {
-    return { error: "Incorrect password." };
+    return { error: "Mot de passe incorrect." };
   }
 
   await createAdminSession();

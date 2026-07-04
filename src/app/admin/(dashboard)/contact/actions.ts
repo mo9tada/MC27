@@ -17,13 +17,13 @@ export async function replyToContactMessage(
   const reply = String(formData.get("reply") ?? "").trim();
 
   if (!id || !reply) {
-    return { error: "Please write a reply before sending." };
+    return { error: "Veuillez rédiger une réponse avant d'envoyer." };
   }
 
   const message = await prisma.contactMessage.findUnique({ where: { id } });
 
   if (!message) {
-    return { error: "Message not found." };
+    return { error: "Message introuvable." };
   }
 
   await prisma.contactMessage.update({
@@ -34,7 +34,7 @@ export async function replyToContactMessage(
   try {
     await sendContactReplyEmail(message.email, message.name, message.subject, reply);
   } catch {
-    return { error: "Reply saved, but the email failed to send." };
+    return { error: "Réponse enregistrée, mais l'e-mail n'a pas pu être envoyé." };
   }
 
   revalidatePath("/admin/contact");

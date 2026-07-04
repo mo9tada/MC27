@@ -29,8 +29,8 @@ export default function RsvpForm({ eventId }: { eventId: string }) {
           >
             <CircleCheck className="size-10 text-emerald-400" />
           </motion.span>
-          <p className="text-white">You&apos;re on the list!</p>
-          <p className="text-sm text-white/70">We&apos;ll see you there. A reminder may follow by email.</p>
+          <p className="text-white">Vous êtes inscrit(e) !</p>
+          <p className="text-sm text-white/70">On se voit là-bas. Un rappel pourra vous être envoyé par e-mail.</p>
         </motion.div>
       ) : (
         <motion.form
@@ -43,20 +43,20 @@ export default function RsvpForm({ eventId }: { eventId: string }) {
         >
           <input type="hidden" name="eventId" value={eventId} />
           <div className="space-y-1.5">
-            <Label htmlFor="name" className="text-white/80">Name</Label>
-            <Input id="name" name="name" placeholder="Jane Doe" required />
+            <Label htmlFor="name" className="text-white/80">Nom</Label>
+            <Input id="name" name="name" placeholder="Jean Dupont" required />
             {state?.fieldErrors?.name && <p className="text-xs text-red-300">{state.fieldErrors.name[0]}</p>}
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="email" className="text-white/80">Email</Label>
-            <Input id="email" name="email" type="email" placeholder="jane@example.com" required />
+            <Input id="email" name="email" type="email" placeholder="jean@exemple.com" required />
             {state?.fieldErrors?.email && <p className="text-xs text-red-300">{state.fieldErrors.email[0]}</p>}
           </div>
 
           {state?.error && <p className="text-sm text-red-300">{state.error}</p>}
 
           <Button type="submit" disabled={isPending} className="w-full bg-[#163b66] text-white hover:bg-[#102c4e]">
-            {isPending ? "Reserving..." : "RSVP to this event"}
+            {isPending ? "Inscription..." : "S'inscrire à cet événement"}
           </Button>
         </motion.form>
       )}

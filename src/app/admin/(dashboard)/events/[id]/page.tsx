@@ -32,12 +32,12 @@ export default async function AdminEventAttendeesPage({ params }: { params: Prom
           className="mb-3 inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-white"
         >
           <ArrowLeft className="size-4" />
-          All events
+          Tous les événements
         </Link>
         <h1 className="text-3xl font-semibold tracking-tight">{event.title}</h1>
         <p className="mt-1 text-sm text-white/60">
           {event.attendees.length}
-          {event.capacity !== null ? ` / ${event.capacity}` : ""} attendees
+          {event.capacity !== null ? ` / ${event.capacity}` : ""} inscrits
         </p>
       </div>
 
@@ -45,9 +45,9 @@ export default async function AdminEventAttendeesPage({ params }: { params: Prom
         <Table>
           <TableHeader>
             <TableRow className="border-white/10 hover:bg-transparent">
-              <TableHead className="text-white/70">Name</TableHead>
+              <TableHead className="text-white/70">Nom</TableHead>
               <TableHead className="text-white/70">Email</TableHead>
-              <TableHead className="text-white/70">RSVP&apos;d</TableHead>
+              <TableHead className="text-white/70">Inscrit le</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -56,7 +56,7 @@ export default async function AdminEventAttendeesPage({ params }: { params: Prom
                 <TableCell className="font-medium">{attendee.name}</TableCell>
                 <TableCell className="text-sm text-white/70">{attendee.email}</TableCell>
                 <TableCell className="text-sm text-white/70">
-                  {attendee.createdAt.toLocaleDateString()} · {attendee.createdAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                  {attendee.createdAt.toLocaleDateString("fr-FR")} · {attendee.createdAt.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
                 </TableCell>
               </TableRow>
             ))}
@@ -64,7 +64,7 @@ export default async function AdminEventAttendeesPage({ params }: { params: Prom
             {event.attendees.length === 0 && (
               <TableRow className="border-white/10">
                 <TableCell colSpan={3} className="text-center text-white/50">
-                  No RSVPs yet.
+                  Aucune inscription pour le moment.
                 </TableCell>
               </TableRow>
             )}

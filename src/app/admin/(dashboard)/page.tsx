@@ -12,14 +12,14 @@ export default async function AdminOverviewPage() {
   ]);
 
   const stats = [
-    { label: "Pending reservations", value: pendingReservations },
-    { label: "New contact messages", value: newMessages },
-    { label: "Wheel spins today", value: spinsToday },
+    { label: "Réservations en attente", value: pendingReservations },
+    { label: "Nouveaux messages", value: newMessages },
+    { label: "Tours de roue aujourd'hui", value: spinsToday },
   ];
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-2 space-y-6 duration-500">
-      <h1 className="text-3xl font-semibold tracking-tight">Overview</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Tableau de bord</h1>
 
       <div className="grid gap-4 sm:grid-cols-3">
         {stats.map((stat, index) => (

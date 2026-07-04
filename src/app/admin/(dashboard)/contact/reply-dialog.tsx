@@ -39,11 +39,11 @@ export default function ReplyDialog({ id, name, subject, message, existingReply 
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button size="sm" variant="outline" />}>
         <Reply className="mr-1.5 size-3.5" />
-        {existingReply ? "View / edit reply" : "Reply"}
+        {existingReply ? "Voir / modifier la réponse" : "Répondre"}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Reply to {name}</DialogTitle>
+          <DialogTitle>Répondre à {name}</DialogTitle>
           <DialogDescription>{subject}</DialogDescription>
         </DialogHeader>
 
@@ -54,14 +54,14 @@ export default function ReplyDialog({ id, name, subject, message, existingReply 
           <Textarea
             name="reply"
             rows={4}
-            placeholder="Write your reply..."
+            placeholder="Rédigez votre réponse..."
             defaultValue={existingReply ?? ""}
             required
           />
           {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
           <DialogFooter>
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Sending..." : "Send reply"}
+              {isPending ? "Envoi..." : "Envoyer la réponse"}
             </Button>
           </DialogFooter>
         </form>

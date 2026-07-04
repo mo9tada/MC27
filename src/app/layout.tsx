@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "MC27 Coffee",
-  description: "Reserve a table, ask us anything, and spin the wheel for a discount at MC27 Coffee.",
+  description: "Réservez une table, posez-nous vos questions et tournez la roue pour gagner une réduction chez MC27 Coffee.",
 };
 
 export default function RootLayout({
@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${inter.variable} ${fraunces.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[#071526]/60">

@@ -43,6 +43,7 @@ model ContactMessage {
 
 model WheelSpin {
   id        String   @id @default(cuid())
+  wheel     String   @default("store") // "store" | "delivery"
   name      String
   email     String
   prize     String
@@ -50,18 +51,19 @@ model WheelSpin {
   redeemed  Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  @@index([email, createdAt])
+  @@index([wheel, email, createdAt])
 }
 
 model WheelPrize {
   id        String   @id @default(cuid())
+  wheel     String   @default("store") // "store" | "delivery"
   label     String
   weight    Int      @default(10)
   color     String   @default("#163b66")
   order     Int      @default(0)
   createdAt DateTime @default(now())
 
-  @@index([order])
+  @@index([wheel, order])
 }
 
 model Event {

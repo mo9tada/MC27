@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,12 +10,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Trash2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { normalizeWheel } from "@/lib/wheel";
 
 import PrizeDialog from "./prize-dialog";
 import { deletePrize } from "./actions";
 
-export default async function AdminPrizesPage() {
+const TABS = [
+  { wheel: "store", label: "Roue boutique" },
+  { wheel: "delivery", label: "Roue livraison" },
+] as const;
+
+export default async function AdminPrizesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ wheel?: string }>;
+}) {
+  const { wheel: wheelParam } = await searchParams;
+  const wheel = normalizeWheel(wheelParam);
+
   const prizes = await prisma.wheelPrize.findMany({
+    where: { wheel },
     orderBy: [{ order: "asc" }, { createdAt: "asc" }],
   });
 
@@ -24,23 +40,39 @@ export default async function AdminPrizesPage() {
     <div className="animate-in fade-in slide-in-from-bottom-2 space-y-6 duration-500">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Wheel prizes</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">Lots de la roue</h1>
           <p className="mt-1 text-sm text-white/60">
-            These are the slices on the public spin wheel. Changes apply immediately.
+            Ce sont les segments de la roue {wheel === "delivery" ? "livraison" : "boutique"} publique. Les
+            changements s&apos;appliquent immédiatement.
           </p>
         </div>
-        <PrizeDialog mode="create" defaultOrder={prizes.length} />
+        <PrizeDialog mode="create" wheel={wheel} defaultOrder={prizes.length} />
+      </div>
+
+      <div className="flex gap-1.5">
+        {TABS.map((tab) => (
+          <Link
+            key={tab.wheel}
+            href={tab.wheel === "store" ? "/admin/prizes" : `/admin/prizes?wheel=${tab.wheel}`}
+            className={cn(
+              "rounded-lg px-3 py-1.5 text-sm transition-colors",
+              wheel === tab.wheel ? "bg-white/15 text-white" : "text-white/60 hover:bg-white/10 hover:text-white"
+            )}
+          >
+            {tab.label}
+          </Link>
+        ))}
       </div>
 
       <div className="animate-in fade-in overflow-hidden rounded-xl border border-white/10 bg-[#102c4e]/60 backdrop-blur duration-500">
         <Table>
           <TableHeader>
             <TableRow className="border-white/10 hover:bg-transparent">
-              <TableHead className="text-white/70">Color</TableHead>
-              <TableHead className="text-white/70">Label</TableHead>
-              <TableHead className="text-white/70">Weight</TableHead>
-              <TableHead className="text-white/70">Win chance</TableHead>
-              <TableHead className="text-white/70">Order</TableHead>
+              <TableHead className="text-white/70">Couleur</TableHead>
+              <TableHead className="text-white/70">Libellé</TableHead>
+              <TableHead className="text-white/70">Poids</TableHead>
+              <TableHead className="text-white/70">Probabilité</TableHead>
+              <TableHead className="text-white/70">Ordre</TableHead>
               <TableHead className="text-white/70">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -62,12 +94,13 @@ export default async function AdminPrizesPage() {
                   <TableCell className="text-white/70">{prize.order}</TableCell>
                   <TableCell>
                     <div className="flex flex-wrap gap-1.5">
-                      <PrizeDialog mode="edit" prize={prize} />
+                      <PrizeDialog mode="edit" wheel={wheel} prize={prize} />
                       <form action={deletePrize}>
                         <input type="hidden" name="id" value={prize.id} />
+                        <input type="hidden" name="wheel" value={wheel} />
                         <Button type="submit" size="sm" variant="destructive">
                           <Trash2 className="mr-1.5 size-3.5" />
-                          Delete
+                          Supprimer
                         </Button>
                       </form>
                     </div>
@@ -79,7 +112,7 @@ export default async function AdminPrizesPage() {
             {prizes.length === 0 && (
               <TableRow className="border-white/10">
                 <TableCell colSpan={6} className="text-center text-white/50">
-                  No prizes yet. Add one to populate the wheel.
+                  Aucun lot pour le moment. Ajoutez-en un pour remplir la roue.
                 </TableCell>
               </TableRow>
             )}

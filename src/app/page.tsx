@@ -13,39 +13,39 @@ import { buttonVariants } from "@/components/ui/button";
 const MotionLink = motion.create(Link);
 
 const rotatingLines = [
-  "Slow mornings, perfectly pulled espresso.",
-  "Navy-toned spaces built for warm conversation.",
-  "Fresh pastries, table service, and a wheel of discounts.",
+  "Des matins tranquilles, un espresso parfaitement extrait.",
+  "Des espaces aux tons bleu nuit pensés pour les conversations chaleureuses.",
+  "Pâtisseries fraîches, service à table et une roue de réductions.",
 ];
 
 const highlights = [
   {
     icon: Coffee,
-    title: "House-roasted coffee, and delicious food",
-    description: "Single-origin beans roasted weekly, brewed by baristas who care about every cup.",
+    title: "Café torréfié maison et bons petits plats",
+    description: "Des grains de pure origine torréfiés chaque semaine, préparés par des baristas qui soignent chaque tasse.",
   },
   {
     icon: CalendarCheck,
-    title: "Easy table booking",
-    description: "Reserve your table online and confirm instantly with a code we email you.",
+    title: "Réservation de table facile",
+    description: "Réservez votre table en ligne et confirmez instantanément avec un code envoyé par e-mail.",
   },
   {
     icon: Disc3,
-    title: "Spin & win",
-    description: "Every visitor gets one spin on our discount wheel, with a voucher PDF to keep.",
+    title: "Tournez & gagnez",
+    description: "Chaque visiteur a droit à un tour de notre roue de réductions, avec un bon en PDF à conserver.",
   },
 ];
 
 const stats = [
-  { value: "50+", label: "Menu items" },
-  { value: "4.7/5", label: "Guest rating" },
-  { value: "1", label: "Free spin per day" },
+  { value: "50+", label: "Articles au menu" },
+  { value: "4.7/5", label: "Note des clients" },
+  { value: "1", label: "Tour gratuit par jour" },
 ];
 
 const details = [
-  { icon: MapPin, label: "Location", value: "Menzel Temime, Nabeul" },
-  { icon: Croissant, label: "Kitchen", value: "Pastries baked fresh daily" },
-  { icon: Clock3, label: "Hours", value: "8:00 – 00:00" },
+  { icon: MapPin, label: "Adresse", value: "Menzel Temime, Nabeul" },
+  { icon: Croissant, label: "Cuisine", value: "Pâtisseries fraîches chaque jour" },
+  { icon: Clock3, label: "Horaires", value: "8:00 – 00:00" },
 ];
 
 const heroContainer = {
@@ -133,14 +133,14 @@ export default function Home() {
                 variants={heroItem}
                 className="font-heading max-w-2xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl"
               >
-                MC27 Coffee feels warmer, softer, and more alive.
+                MC27 Coffee, plus chaleureux, plus doux, plus vivant.
               </motion.h1>
 
               <motion.p variants={heroItem} className="mt-6 max-w-2xl text-lg leading-8 text-white/85 sm:text-xl">
-                House-roasted coffee, fresh pastries and food, and a table always ready for you.
+                Café torréfié maison, pâtisseries et plats frais, et une table toujours prête pour vous.
               </motion.p>
               <motion.p variants={heroItem} className="mt-2 max-w-2xl text-lg leading-8 text-white/85 sm:text-xl">
-                Reserve a table, ask us anything, or spin the wheel for a gift.
+                Réservez une table, posez-nous vos questions ou tournez la roue pour gagner un cadeau.
               </motion.p>
 
               <motion.div variants={heroItem} className="mt-8 flex flex-wrap items-center gap-3">
@@ -150,7 +150,7 @@ export default function Home() {
                   whileTap={{ scale: 0.97 }}
                   className={buttonVariants({ className: "bg-[#163b66] text-white hover:bg-[#102c4e]" })}
                 >
-                  Reserve a table
+                  Réserver une table
                   <ArrowRight className="ml-2 size-4" />
                 </MotionLink>
                 <MotionLink
@@ -160,7 +160,7 @@ export default function Home() {
                   className={buttonVariants({ variant: "outline", className: "border-white/20 bg-white/10 text-white hover:bg-white/15" })}
                 >
                   <Disc3 className="mr-2 size-4" />
-                  Spin to win
+                  Tourner & gagner
                 </MotionLink>
                 <motion.button
                   type="button"
@@ -169,7 +169,7 @@ export default function Home() {
                   onClick={scrollToBottom}
                   className={buttonVariants({ variant: "ghost", className: "text-white/80 hover:bg-white/10 hover:text-white" })}
                 >
-                  {isScrolling ? "Gliding down..." : "Learn more"}
+                  {isScrolling ? "Défilement..." : "En savoir plus"}
                 </motion.button>
               </motion.div>
             </motion.div>
@@ -195,7 +195,7 @@ export default function Home() {
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             />
             <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-[#c58d5a]">Live mood line</p>
+              <p className="text-sm uppercase tracking-[0.3em] text-[#c58d5a]">L&apos;ambiance en direct</p>
               <h2 className="font-heading mt-2 h-[2.6em] overflow-hidden text-3xl text-white sm:h-[1.3em] sm:text-4xl">
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -248,7 +248,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-sm uppercase tracking-[0.3em] text-[#c58d5a]"
           >
-            Experience pillars
+            Nos points forts
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -256,7 +256,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="font-heading mt-2 text-3xl text-white sm:text-4xl"
           >
-            Design that feels considered
+            Une expérience pensée dans les moindres détails
           </motion.h2>
 
           <div className="mt-12 grid gap-10 sm:grid-cols-3">

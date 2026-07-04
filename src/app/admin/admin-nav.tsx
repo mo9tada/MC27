@@ -1,8 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboard, CalendarCheck, MessageCircleQuestion, Disc3, Gift, CalendarHeart, LogOut } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
+import {
+  LayoutDashboard,
+  CalendarCheck,
+  MessageCircleQuestion,
+  Disc3,
+  Gift,
+  Truck,
+  CalendarHeart,
+  LogOut,
+} from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -10,16 +19,19 @@ import { cn } from "@/lib/utils";
 import { logoutAdmin } from "./actions";
 
 const navItems = [
-  { href: "/admin", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/reservations", label: "Reservations", icon: CalendarCheck },
-  { href: "/admin/contact", label: "Contact Q&A", icon: MessageCircleQuestion },
-  { href: "/admin/events", label: "Events", icon: CalendarHeart },
-  { href: "/admin/wheel", label: "Spin wheel", icon: Disc3 },
-  { href: "/admin/prizes", label: "Wheel prizes", icon: Gift },
+  { href: "/admin", label: "Tableau de bord", icon: LayoutDashboard, wheel: undefined },
+  { href: "/admin/reservations", label: "Réservations", icon: CalendarCheck, wheel: undefined },
+  { href: "/admin/contact", label: "Questions", icon: MessageCircleQuestion, wheel: undefined },
+  { href: "/admin/events", label: "Événements", icon: CalendarHeart, wheel: undefined },
+  { href: "/admin/wheel", label: "Gains de la roue", icon: Disc3, wheel: undefined },
+  { href: "/admin/prizes", label: "Lots — Boutique", icon: Gift, wheel: "store" },
+  { href: "/admin/prizes?wheel=delivery", label: "Lots — Livraison", icon: Truck, wheel: "delivery" },
 ];
 
 export default function AdminNav() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentWheel = searchParams.get("wheel") === "delivery" ? "delivery" : "store";
 
   return (
     <aside className="flex w-full flex-col gap-1 border-white/10 bg-[#0b1f38]/80 p-4 sm:w-56 sm:border-r">
@@ -27,7 +39,11 @@ export default function AdminNav() {
 
       {navItems.map((item) => {
         const Icon = item.icon;
-        const isActive = pathname === item.href;
+        const pathMatches = pathname === item.href.split("?")[0];
+        const isActive =
+          item.href.startsWith("/admin/prizes")
+            ? pathMatches && currentWheel === item.wheel
+            : pathMatches;
 
         return (
           <Link
@@ -51,7 +67,7 @@ export default function AdminNav() {
           className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-white/60 hover:bg-white/10 hover:text-white")}
         >
           <LogOut className="mr-2 size-4" />
-          Log out
+          Déconnexion
         </button>
       </form>
     </aside>

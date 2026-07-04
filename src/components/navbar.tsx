@@ -16,11 +16,12 @@ import {
 } from "@/components/ui/sheet";
 
 const navItems = [
-    { href: "/", label: "Home" },
-    { href: "/events", label: "Events" },
-    { href: "/reservations", label: "Reservations" },
+    { href: "/", label: "Accueil" },
+    { href: "/events", label: "Événements" },
+    { href: "/reservations", label: "Réservations" },
     { href: "/contact", label: "Contact" },
-    { href: "/spinwheel", label: "Spinwheel" },
+    { href: "/spinwheel", label: "Roue" },
+    { href: "/delivery-spinwheel", label: "Livraison" },
 ];
 
 export default function Navbar() {
@@ -72,12 +73,12 @@ export default function Navbar() {
                     <Sheet>
                         <SheetTrigger render={<Button variant="outline" size="icon" className="border-white/20 bg-white/5 text-white hover:bg-white/10" />}>
                             <Menu className="size-4" />
-                            <span className="sr-only">Open menu</span>
+                            <span className="sr-only">Ouvrir le menu</span>
                         </SheetTrigger>
                         <SheetContent side="right" className="w-[280px] border-white/10 bg-[#071526]/95 backdrop-blur-xl">
                             <SheetHeader>
                                 <SheetTitle className="text-white">Navigation</SheetTitle>
-                                <SheetDescription className="text-white/60">Browse all pages from this menu.</SheetDescription>
+                                <SheetDescription className="text-white/60">Parcourez toutes les pages depuis ce menu.</SheetDescription>
                             </SheetHeader>
                             <div className="flex flex-col gap-2 px-4 pb-4">
                                 {navItems.map((item) => (

@@ -1,5 +1,12 @@
 import { randomBytes } from "crypto";
 
+export const WHEELS = ["store", "delivery"] as const;
+export type WheelKind = (typeof WHEELS)[number];
+
+export function normalizeWheel(value: unknown): WheelKind {
+  return value === "delivery" ? "delivery" : "store";
+}
+
 export type WheelSegment = {
   id?: string;
   label: string;

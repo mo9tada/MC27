@@ -21,10 +21,10 @@ import { createPrize, updatePrize, type PrizeFormState } from "./actions";
 type Prize = { id: string; label: string; weight: number; color: string; order: number };
 
 type Props =
-  | { mode: "create"; defaultOrder: number; prize?: undefined }
-  | { mode: "edit"; prize: Prize; defaultOrder?: undefined };
+  | { mode: "create"; wheel: string; defaultOrder: number; prize?: undefined }
+  | { mode: "edit"; wheel: string; prize: Prize; defaultOrder?: undefined };
 
-export default function PrizeDialog({ mode, prize, defaultOrder }: Props) {
+export default function PrizeDialog({ mode, prize, defaultOrder, wheel }: Props) {
   const [open, setOpen] = useState(false);
   const action = mode === "create" ? createPrize : updatePrize;
   const [state, formAction, isPending] = useActionState<PrizeFormState, FormData>(action, undefined);
@@ -49,36 +49,37 @@ export default function PrizeDialog({ mode, prize, defaultOrder }: Props) {
         {mode === "create" ? (
           <>
             <Plus className="mr-1.5 size-3.5" />
-            Add prize
+            Ajouter un lot
           </>
         ) : (
           <>
             <Pencil className="mr-1.5 size-3.5" />
-            Edit
+            Modifier
           </>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{mode === "create" ? "Add a prize" : "Edit prize"}</DialogTitle>
+          <DialogTitle>{mode === "create" ? "Ajouter un lot" : "Modifier le lot"}</DialogTitle>
           <DialogDescription>
-            Higher weight means a higher chance of landing on this slice. Set weight to 0 to keep a slice on the
-            wheel without ever awarding it.
+            Plus le poids est élevé, plus les chances de tomber sur ce segment sont grandes. Mettez le poids à 0
+            pour garder un segment sur la roue sans jamais l&apos;attribuer.
           </DialogDescription>
         </DialogHeader>
 
         <form action={formAction} className="space-y-4">
+          <input type="hidden" name="wheel" value={wheel} />
           {mode === "edit" && <input type="hidden" name="id" value={prize.id} />}
 
           <div className="space-y-1.5">
-            <Label htmlFor="label">Label</Label>
-            <Input id="label" name="label" defaultValue={prize?.label ?? ""} placeholder="10% Off" required />
+            <Label htmlFor="label">Libellé</Label>
+            <Input id="label" name="label" defaultValue={prize?.label ?? ""} placeholder="10% de réduction" required />
             {state?.fieldErrors?.label && <p className="text-xs text-destructive">{state.fieldErrors.label[0]}</p>}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="weight">Weight (chance)</Label>
+              <Label htmlFor="weight">Poids (chance)</Label>
               <Input
                 id="weight"
                 name="weight"
@@ -94,7 +95,7 @@ export default function PrizeDialog({ mode, prize, defaultOrder }: Props) {
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="order">Order</Label>
+              <Label htmlFor="order">Ordre</Label>
               <Input
                 id="order"
                 name="order"
@@ -111,7 +112,7 @@ export default function PrizeDialog({ mode, prize, defaultOrder }: Props) {
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="color">Slice color</Label>
+            <Label htmlFor="color">Couleur du segment</Label>
             <input
               id="color"
               name="color"
@@ -126,7 +127,7 @@ export default function PrizeDialog({ mode, prize, defaultOrder }: Props) {
 
           <DialogFooter>
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Saving..." : mode === "create" ? "Add prize" : "Save changes"}
+              {isPending ? "Enregistrement..." : mode === "create" ? "Ajouter le lot" : "Enregistrer"}
             </Button>
           </DialogFooter>
         </form>

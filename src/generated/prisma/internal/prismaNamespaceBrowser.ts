@@ -112,6 +112,7 @@ export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnu
 
 export const WheelSpinScalarFieldEnum = {
   id: 'id',
+  wheel: 'wheel',
   name: 'name',
   email: 'email',
   prize: 'prize',
@@ -125,6 +126,7 @@ export type WheelSpinScalarFieldEnum = (typeof WheelSpinScalarFieldEnum)[keyof t
 
 export const WheelPrizeScalarFieldEnum = {
   id: 'id',
+  wheel: 'wheel',
   label: 'label',
   weight: 'weight',
   color: 'color',

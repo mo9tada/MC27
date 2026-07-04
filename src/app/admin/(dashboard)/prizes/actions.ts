@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { verifyAdminSession } from "@/lib/dal";
 import { prizeSchema } from "@/lib/validation";
+import { normalizeWheel } from "@/lib/wheel";
 
 export type PrizeFormState =
   | {
@@ -22,9 +23,9 @@ function parsePrize(formData: FormData) {
   });
 }
 
-function revalidate() {
+function revalidate(wheel: string) {
   revalidatePath("/admin/prizes");
-  revalidatePath("/spinwheel");
+  revalidatePath(wheel === "delivery" ? "/delivery-spinwheel" : "/spinwheel");
 }
 
 export async function createPrize(_prev: PrizeFormState, formData: FormData): Promise<PrizeFormState> {
@@ -35,8 +36,9 @@ export async function createPrize(_prev: PrizeFormState, formData: FormData): Pr
     return { fieldErrors: parsed.error.flatten().fieldErrors as Record<string, string[]> };
   }
 
-  await prisma.wheelPrize.create({ data: parsed.data });
-  revalidate();
+  const wheel = normalizeWheel(formData.get("wheel"));
+  await prisma.wheelPrize.create({ data: { ...parsed.data, wheel } });
+  revalidate(wheel);
   return { success: true };
 }
 
@@ -45,7 +47,7 @@ export async function updatePrize(_prev: PrizeFormState, formData: FormData): Pr
 
   const id = String(formData.get("id") ?? "");
   if (!id) {
-    return { error: "Missing prize id." };
+    return { error: "Identifiant du lot manquant." };
   }
 
   const parsed = parsePrize(formData);
@@ -53,8 +55,9 @@ export async function updatePrize(_prev: PrizeFormState, formData: FormData): Pr
     return { fieldErrors: parsed.error.flatten().fieldErrors as Record<string, string[]> };
   }
 
+  const wheel = normalizeWheel(formData.get("wheel"));
   await prisma.wheelPrize.update({ where: { id }, data: parsed.data });
-  revalidate();
+  revalidate(wheel);
   return { success: true };
 }
 
@@ -66,6 +69,7 @@ export async function deletePrize(formData: FormData) {
     return;
   }
 
+  const wheel = normalizeWheel(formData.get("wheel"));
   await prisma.wheelPrize.delete({ where: { id } });
-  revalidate();
+  revalidate(wheel);
 }

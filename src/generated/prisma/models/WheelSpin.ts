@@ -26,6 +26,7 @@ export type AggregateWheelSpin = {
 
 export type WheelSpinMinAggregateOutputType = {
   id: string | null
+  wheel: string | null
   name: string | null
   email: string | null
   prize: string | null
@@ -36,6 +37,7 @@ export type WheelSpinMinAggregateOutputType = {
 
 export type WheelSpinMaxAggregateOutputType = {
   id: string | null
+  wheel: string | null
   name: string | null
   email: string | null
   prize: string | null
@@ -46,6 +48,7 @@ export type WheelSpinMaxAggregateOutputType = {
 
 export type WheelSpinCountAggregateOutputType = {
   id: number
+  wheel: number
   name: number
   email: number
   prize: number
@@ -58,6 +61,7 @@ export type WheelSpinCountAggregateOutputType = {
 
 export type WheelSpinMinAggregateInputType = {
   id?: true
+  wheel?: true
   name?: true
   email?: true
   prize?: true
@@ -68,6 +72,7 @@ export type WheelSpinMinAggregateInputType = {
 
 export type WheelSpinMaxAggregateInputType = {
   id?: true
+  wheel?: true
   name?: true
   email?: true
   prize?: true
@@ -78,6 +83,7 @@ export type WheelSpinMaxAggregateInputType = {
 
 export type WheelSpinCountAggregateInputType = {
   id?: true
+  wheel?: true
   name?: true
   email?: true
   prize?: true
@@ -161,6 +167,7 @@ export type WheelSpinGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type WheelSpinGroupByOutputType = {
   id: string
+  wheel: string
   name: string
   email: string
   prize: string
@@ -192,6 +199,7 @@ export type WheelSpinWhereInput = {
   OR?: Prisma.WheelSpinWhereInput[]
   NOT?: Prisma.WheelSpinWhereInput | Prisma.WheelSpinWhereInput[]
   id?: Prisma.StringFilter<"WheelSpin"> | string
+  wheel?: Prisma.StringFilter<"WheelSpin"> | string
   name?: Prisma.StringFilter<"WheelSpin"> | string
   email?: Prisma.StringFilter<"WheelSpin"> | string
   prize?: Prisma.StringFilter<"WheelSpin"> | string
@@ -202,6 +210,7 @@ export type WheelSpinWhereInput = {
 
 export type WheelSpinOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   prize?: Prisma.SortOrder
@@ -216,6 +225,7 @@ export type WheelSpinWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.WheelSpinWhereInput | Prisma.WheelSpinWhereInput[]
   OR?: Prisma.WheelSpinWhereInput[]
   NOT?: Prisma.WheelSpinWhereInput | Prisma.WheelSpinWhereInput[]
+  wheel?: Prisma.StringFilter<"WheelSpin"> | string
   name?: Prisma.StringFilter<"WheelSpin"> | string
   email?: Prisma.StringFilter<"WheelSpin"> | string
   prize?: Prisma.StringFilter<"WheelSpin"> | string
@@ -225,6 +235,7 @@ export type WheelSpinWhereUniqueInput = Prisma.AtLeast<{
 
 export type WheelSpinOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   prize?: Prisma.SortOrder
@@ -241,6 +252,7 @@ export type WheelSpinScalarWhereWithAggregatesInput = {
   OR?: Prisma.WheelSpinScalarWhereWithAggregatesInput[]
   NOT?: Prisma.WheelSpinScalarWhereWithAggregatesInput | Prisma.WheelSpinScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"WheelSpin"> | string
+  wheel?: Prisma.StringWithAggregatesFilter<"WheelSpin"> | string
   name?: Prisma.StringWithAggregatesFilter<"WheelSpin"> | string
   email?: Prisma.StringWithAggregatesFilter<"WheelSpin"> | string
   prize?: Prisma.StringWithAggregatesFilter<"WheelSpin"> | string
@@ -251,6 +263,7 @@ export type WheelSpinScalarWhereWithAggregatesInput = {
 
 export type WheelSpinCreateInput = {
   id?: string
+  wheel?: string
   name: string
   email: string
   prize: string
@@ -261,6 +274,7 @@ export type WheelSpinCreateInput = {
 
 export type WheelSpinUncheckedCreateInput = {
   id?: string
+  wheel?: string
   name: string
   email: string
   prize: string
@@ -271,6 +285,7 @@ export type WheelSpinUncheckedCreateInput = {
 
 export type WheelSpinUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  wheel?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   prize?: Prisma.StringFieldUpdateOperationsInput | string
@@ -281,6 +296,7 @@ export type WheelSpinUpdateInput = {
 
 export type WheelSpinUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  wheel?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   prize?: Prisma.StringFieldUpdateOperationsInput | string
@@ -291,6 +307,7 @@ export type WheelSpinUncheckedUpdateInput = {
 
 export type WheelSpinCreateManyInput = {
   id?: string
+  wheel?: string
   name: string
   email: string
   prize: string
@@ -301,6 +318,7 @@ export type WheelSpinCreateManyInput = {
 
 export type WheelSpinUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  wheel?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   prize?: Prisma.StringFieldUpdateOperationsInput | string
@@ -311,6 +329,7 @@ export type WheelSpinUpdateManyMutationInput = {
 
 export type WheelSpinUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  wheel?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   prize?: Prisma.StringFieldUpdateOperationsInput | string
@@ -321,6 +340,7 @@ export type WheelSpinUncheckedUpdateManyInput = {
 
 export type WheelSpinCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   prize?: Prisma.SortOrder
@@ -331,6 +351,7 @@ export type WheelSpinCountOrderByAggregateInput = {
 
 export type WheelSpinMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   prize?: Prisma.SortOrder
@@ -341,6 +362,7 @@ export type WheelSpinMaxOrderByAggregateInput = {
 
 export type WheelSpinMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   prize?: Prisma.SortOrder
@@ -353,6 +375,7 @@ export type WheelSpinMinOrderByAggregateInput = {
 
 export type WheelSpinSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  wheel?: boolean
   name?: boolean
   email?: boolean
   prize?: boolean
@@ -363,6 +386,7 @@ export type WheelSpinSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type WheelSpinSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  wheel?: boolean
   name?: boolean
   email?: boolean
   prize?: boolean
@@ -373,6 +397,7 @@ export type WheelSpinSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
 
 export type WheelSpinSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  wheel?: boolean
   name?: boolean
   email?: boolean
   prize?: boolean
@@ -383,6 +408,7 @@ export type WheelSpinSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 
 export type WheelSpinSelectScalar = {
   id?: boolean
+  wheel?: boolean
   name?: boolean
   email?: boolean
   prize?: boolean
@@ -391,13 +417,14 @@ export type WheelSpinSelectScalar = {
   createdAt?: boolean
 }
 
-export type WheelSpinOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "prize" | "code" | "redeemed" | "createdAt", ExtArgs["result"]["wheelSpin"]>
+export type WheelSpinOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "wheel" | "name" | "email" | "prize" | "code" | "redeemed" | "createdAt", ExtArgs["result"]["wheelSpin"]>
 
 export type $WheelSpinPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "WheelSpin"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    wheel: string
     name: string
     email: string
     prize: string
@@ -828,6 +855,7 @@ export interface Prisma__WheelSpinClient<T, Null = never, ExtArgs extends runtim
  */
 export interface WheelSpinFieldRefs {
   readonly id: Prisma.FieldRef<"WheelSpin", 'String'>
+  readonly wheel: Prisma.FieldRef<"WheelSpin", 'String'>
   readonly name: Prisma.FieldRef<"WheelSpin", 'String'>
   readonly email: Prisma.FieldRef<"WheelSpin", 'String'>
   readonly prize: Prisma.FieldRef<"WheelSpin", 'String'>

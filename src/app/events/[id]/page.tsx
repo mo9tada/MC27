@@ -12,13 +12,13 @@ import RsvpForm from "./rsvp-form";
 export const dynamic = "force-dynamic";
 
 function formatDate(date: Date) {
-  const day = date.toLocaleDateString("en-US", {
+  const day = date.toLocaleDateString("fr-FR", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-  const time = date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+  const time = date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
   return `${day} · ${time}`;
 }
 
@@ -48,7 +48,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           className="mb-6 inline-flex items-center gap-1.5 text-sm text-white/70 transition-colors hover:text-white"
         >
           <ArrowLeft className="size-4" />
-          All events
+          Tous les événements
         </Link>
 
         <div className="grid gap-8 lg:grid-cols-[1.4fr_0.9fr]">
@@ -85,7 +85,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
               {event.capacity !== null && (
                 <span className="flex items-center gap-1.5">
                   <Users className="size-4" />
-                  {event._count.attendees}/{event.capacity} going
+                  {event._count.attendees}/{event.capacity} inscrits
                 </span>
               )}
             </div>
@@ -94,18 +94,18 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           </FloatPanel>
 
           <FloatPanel glow="navy" className="self-start">
-            <p className="text-sm text-[#c58d5a]">Reserve your spot</p>
-            <h2 className="font-heading mt-1 text-xl text-white">RSVP</h2>
+            <p className="text-sm text-[#c58d5a]">Réservez votre place</p>
+            <h2 className="font-heading mt-1 text-xl text-white">Inscription</h2>
 
             <div className="mt-6">
               {isPast ? (
-                <p className="text-white/70">This event has already taken place.</p>
+                <p className="text-white/70">Cet événement a déjà eu lieu.</p>
               ) : isFull ? (
-                <p className="text-white/70">This event is fully booked. Check back for future dates!</p>
+                <p className="text-white/70">Cet événement est complet. Revenez pour les prochaines dates !</p>
               ) : (
                 <>
                   {spotsLeft !== null && (
-                    <p className="mb-4 text-sm text-white/60">{spotsLeft} spots left</p>
+                    <p className="mb-4 text-sm text-white/60">{spotsLeft} places restantes</p>
                   )}
                   <RsvpForm eventId={event.id} />
                 </>

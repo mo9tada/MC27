@@ -7,7 +7,7 @@ export async function GET(_request: Request, ctx: RouteContext<"/api/wheel/[id]"
   const spin = await prisma.wheelSpin.findUnique({ where: { id } });
 
   if (!spin) {
-    return new Response("Voucher not found", { status: 404 });
+    return new Response("Bon introuvable", { status: 404 });
   }
 
   const pdfBytes = await generateVoucherPdf({ name: spin.name, prize: spin.prize, code: spin.code });

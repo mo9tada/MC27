@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { wheelSchema } from "@/lib/validation";
-import { pickSegmentIndex, generateVoucherCode } from "@/lib/wheel";
+import { pickSegmentIndex, generateVoucherCode, normalizeWheel } from "@/lib/wheel";
 import { getWheelPrizes } from "@/lib/wheel-data";
 
 export type SpinState =
@@ -29,19 +29,20 @@ export async function spinWheel(_prevState: SpinState, formData: FormData): Prom
   }
 
   const { name, email } = parsed.data;
+  const wheel = normalizeWheel(formData.get("wheel"));
 
-  const prizes = await getWheelPrizes();
+  const prizes = await getWheelPrizes(wheel);
 
   if (prizes.length === 0) {
-    return { error: "The wheel is not available right now. Please try again later." };
+    return { error: "La roue n'est pas disponible pour le moment. Veuillez réessayer plus tard." };
   }
 
-  // One spin per email per calendar day: only look at spins made since midnight today.
+  // One spin per email per calendar day, per wheel: only look at today's spins on this wheel.
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);
 
   const existing = await prisma.wheelSpin.findFirst({
-    where: { email, createdAt: { gte: startOfDay } },
+    where: { wheel, email, createdAt: { gte: startOfDay } },
     orderBy: { createdAt: "desc" },
   });
 
@@ -65,7 +66,7 @@ export async function spinWheel(_prevState: SpinState, formData: FormData): Prom
 
   for (let attempt = 0; attempt < 5; attempt++) {
     try {
-      spin = await prisma.wheelSpin.create({ data: { name, email, prize, code } });
+      spin = await prisma.wheelSpin.create({ data: { wheel, name, email, prize, code } });
       break;
     } catch {
       code = generateVoucherCode();
@@ -73,7 +74,7 @@ export async function spinWheel(_prevState: SpinState, formData: FormData): Prom
   }
 
   if (!spin) {
-    return { error: "Something went wrong. Please try again." };
+    return { error: "Une erreur est survenue. Veuillez réessayer." };
   }
 
   return { id: spin.id, name: spin.name, prize: spin.prize, code: spin.code, segmentIndex };

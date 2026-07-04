@@ -31,20 +31,20 @@ export async function rsvpToEvent(_prev: RsvpState, formData: FormData): Promise
   });
 
   if (!event || !event.published) {
-    return { error: "This event is no longer available." };
+    return { error: "Cet événement n'est plus disponible." };
   }
 
   if (event.capacity !== null && event._count.attendees >= event.capacity) {
-    return { error: "Sorry, this event is fully booked." };
+    return { error: "Désolé, cet événement est complet." };
   }
 
   try {
     await prisma.eventAttendee.create({ data: { eventId, name, email } });
   } catch (e) {
     if (e && typeof e === "object" && "code" in e && e.code === "P2002") {
-      return { error: "You've already RSVP'd to this event with that email." };
+      return { error: "Vous êtes déjà inscrit(e) à cet événement avec cette adresse e-mail." };
     }
-    return { error: "Something went wrong. Please try again." };
+    return { error: "Une erreur est survenue. Veuillez réessayer." };
   }
 
   revalidatePath(`/events/${eventId}`);

@@ -28,7 +28,21 @@ function buildWheelBackground(prizes: WheelPrizeView[], sliceAngle: number) {
   return `conic-gradient(from 0deg, ${stops.join(", ")})`;
 }
 
-export default function SpinWheelClient({ prizes }: { prizes: WheelPrizeView[] }) {
+type SpinWheelClientProps = {
+  prizes: WheelPrizeView[];
+  wheel?: string;
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+};
+
+export default function SpinWheelClient({
+  prizes,
+  wheel = "store",
+  badge = "MC27 Coffee — Tournez & Gagnez",
+  title = "Tournez pour gagner",
+  subtitle = "Renseignez vos coordonnées et tournez la roue pour une réduction. Votre lot est accompagné d'un bon en PDF à télécharger.",
+}: SpinWheelClientProps) {
   const [state, formAction, isPending] = useActionState(spinWheel, undefined);
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
@@ -84,7 +98,7 @@ export default function SpinWheelClient({ prizes }: { prizes: WheelPrizeView[] }
           className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/80 backdrop-blur"
         >
           <span className="size-2 rounded-full bg-[#c58d5a]" />
-          <span>MC27 Coffee — Spin & Win</span>
+          <span>{badge}</span>
         </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: -16 }}
@@ -92,7 +106,7 @@ export default function SpinWheelClient({ prizes }: { prizes: WheelPrizeView[] }
           transition={{ duration: 0.5 }}
           className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl"
         >
-          Spin to win
+          {title}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: -16 }}
@@ -100,13 +114,12 @@ export default function SpinWheelClient({ prizes }: { prizes: WheelPrizeView[] }
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mt-3 max-w-xl text-white/70"
         >
-          Enter your details and spin the wheel for a one-time discount. Your prize comes with a downloadable
-          voucher PDF.
+          {subtitle}
         </motion.p>
 
         {prizes.length === 0 ? (
           <FloatPanel className="mt-10 w-full max-w-md">
-            <p className="text-white/80">The wheel is currently being refreshed. Please check back soon.</p>
+            <p className="text-white/80">La roue est en cours de mise à jour. Revenez bientôt.</p>
           </FloatPanel>
         ) : (
           <>
@@ -207,20 +220,21 @@ export default function SpinWheelClient({ prizes }: { prizes: WheelPrizeView[] }
                   className="w-full max-w-md"
                 >
                   <FloatPanel className="mt-10 w-full max-w-md">
-                    <p className="text-sm text-[#c58d5a]">One spin per email</p>
-                    <h2 className="font-heading mt-1 text-xl text-white">Enter your details</h2>
+                    <p className="text-sm text-[#c58d5a]">Un seul tour par e-mail</p>
+                    <h2 className="font-heading mt-1 text-xl text-white">Vos coordonnées</h2>
 
                     <form action={formAction} className="mt-6 space-y-4">
+                      <input type="hidden" name="wheel" value={wheel} />
                       <div className="space-y-1.5">
-                        <Label htmlFor="name" className="text-white/80">Name</Label>
-                        <Input id="name" name="name" placeholder="Jane Doe" required disabled={isSpinning} />
+                        <Label htmlFor="name" className="text-white/80">Nom</Label>
+                        <Input id="name" name="name" placeholder="Jean Dupont" required disabled={isSpinning} />
                         {state?.fieldErrors?.name && (
                           <p className="text-xs text-red-300">{state.fieldErrors.name[0]}</p>
                         )}
                       </div>
                       <div className="space-y-1.5">
                         <Label htmlFor="email" className="text-white/80">Email</Label>
-                        <Input id="email" name="email" type="email" placeholder="jane@example.com" required disabled={isSpinning} />
+                        <Input id="email" name="email" type="email" placeholder="jean@exemple.com" required disabled={isSpinning} />
                         {state?.fieldErrors?.email && (
                           <p className="text-xs text-red-300">{state.fieldErrors.email[0]}</p>
                         )}
@@ -233,7 +247,7 @@ export default function SpinWheelClient({ prizes }: { prizes: WheelPrizeView[] }
                         disabled={isPending || isSpinning}
                         className="w-full bg-[#163b66] text-white hover:bg-[#102c4e]"
                       >
-                        {isPending || isSpinning ? "Spinning..." : "Spin the wheel"}
+                        {isPending || isSpinning ? "La roue tourne..." : "Tourner la roue"}
                       </Button>
                     </form>
                   </FloatPanel>
@@ -250,7 +264,7 @@ export default function SpinWheelClient({ prizes }: { prizes: WheelPrizeView[] }
                 >
                   <FloatPanel glow="navy" className="mt-10 w-full max-w-md">
                     <p className="text-sm text-[#c58d5a]">
-                      {state.alreadySpun ? "You already spun today — here's your prize" : "Congratulations!"}
+                      {state.alreadySpun ? "Vous avez déjà tourné aujourd'hui — voici votre lot" : "Félicitations !"}
                     </p>
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
@@ -262,13 +276,13 @@ export default function SpinWheelClient({ prizes }: { prizes: WheelPrizeView[] }
 
                     <div className="mt-6 space-y-4">
                       <p className="text-sm text-white/70">
-                        Voucher code <span className="font-semibold text-[#c58d5a]">{state.code}</span>
+                        Code du bon <span className="font-semibold text-[#c58d5a]">{state.code}</span>
                       </p>
                       <a href={`/api/wheel/${state.id}`} download>
                         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                           <Button className="w-full bg-[#163b66] text-white hover:bg-[#102c4e]">
                             <Download className="mr-2 size-4" />
-                            Download voucher PDF
+                            Télécharger le bon (PDF)
                           </Button>
                         </motion.div>
                       </a>

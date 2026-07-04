@@ -44,12 +44,12 @@ async function resolveImageUrl(formData: FormData): Promise<{ imageUrl?: string;
     return {};
   }
   if (!isStorageConfigured()) {
-    return { error: "Image upload isn't set up yet. Save without an image, or add the storage key first." };
+    return { error: "Le téléversement d'images n'est pas encore configuré. Enregistrez sans image, ou ajoutez d'abord la clé de stockage." };
   }
   try {
     return { imageUrl: await uploadEventImage(file) };
   } catch (e) {
-    return { error: e instanceof Error ? e.message : "Image upload failed." };
+    return { error: e instanceof Error ? e.message : "Échec du téléversement de l'image." };
   }
 }
 
@@ -92,7 +92,7 @@ export async function updateEvent(_prev: EventFormState, formData: FormData): Pr
   await verifyAdminSession();
 
   const id = String(formData.get("id") ?? "");
-  if (!id) return { error: "Missing event id." };
+  if (!id) return { error: "Identifiant d'événement manquant." };
 
   const parsed = parseEvent(formData);
   if (!parsed.success) {

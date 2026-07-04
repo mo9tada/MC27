@@ -56,27 +56,27 @@ export default function EventDialog({ mode, event }: Props) {
         {mode === "create" ? (
           <>
             <Plus className="mr-1.5 size-3.5" />
-            Add event
+            Ajouter un événement
           </>
         ) : (
           <>
             <Pencil className="mr-1.5 size-3.5" />
-            Edit
+            Modifier
           </>
         )}
       </DialogTrigger>
       <DialogContent className="max-h-[88vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{mode === "create" ? "Add an event" : "Edit event"}</DialogTitle>
-          <DialogDescription>Events appear on the public Events page while published and upcoming.</DialogDescription>
+          <DialogTitle>{mode === "create" ? "Ajouter un événement" : "Modifier l'événement"}</DialogTitle>
+          <DialogDescription>Les événements apparaissent sur la page publique tant qu'ils sont publiés et à venir.</DialogDescription>
         </DialogHeader>
 
         <form action={formAction} className="space-y-4">
           {mode === "edit" && <input type="hidden" name="id" value={event.id} />}
 
           <div className="space-y-1.5">
-            <Label htmlFor="title">Title</Label>
-            <Input id="title" name="title" defaultValue={event?.title ?? ""} placeholder="Latte art workshop" required />
+            <Label htmlFor="title">Titre</Label>
+            <Input id="title" name="title" defaultValue={event?.title ?? ""} placeholder="Atelier latte art" required />
             {state?.fieldErrors?.title && <p className="text-xs text-destructive">{state.fieldErrors.title[0]}</p>}
           </div>
 
@@ -87,7 +87,7 @@ export default function EventDialog({ mode, event }: Props) {
               name="description"
               rows={4}
               defaultValue={event?.description ?? ""}
-              placeholder="What's the event about?"
+              placeholder="De quoi parle l'événement ?"
               required
             />
             {state?.fieldErrors?.description && (
@@ -97,19 +97,19 @@ export default function EventDialog({ mode, event }: Props) {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="date">Date &amp; time</Label>
+              <Label htmlFor="date">Date &amp; heure</Label>
               <Input id="date" name="date" type="datetime-local" defaultValue={event?.dateLocal ?? ""} required />
               {state?.fieldErrors?.date && <p className="text-xs text-destructive">{state.fieldErrors.date[0]}</p>}
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="capacity">Capacity (optional)</Label>
+              <Label htmlFor="capacity">Capacité (facultatif)</Label>
               <Input
                 id="capacity"
                 name="capacity"
                 type="number"
                 min={1}
                 defaultValue={event?.capacity ?? ""}
-                placeholder="Unlimited"
+                placeholder="Illimitée"
               />
               {state?.fieldErrors?.capacity && (
                 <p className="text-xs text-destructive">{state.fieldErrors.capacity[0]}</p>
@@ -119,17 +119,17 @@ export default function EventDialog({ mode, event }: Props) {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="location">Location (optional)</Label>
+              <Label htmlFor="location">Lieu (facultatif)</Label>
               <Input id="location" name="location" defaultValue={event?.location ?? ""} placeholder="MC27 Coffee" />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="price">Price (optional)</Label>
-              <Input id="price" name="price" defaultValue={event?.price ?? ""} placeholder="Free entry" />
+              <Label htmlFor="price">Prix (facultatif)</Label>
+              <Input id="price" name="price" defaultValue={event?.price ?? ""} placeholder="Entrée gratuite" />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="image">Image (optional)</Label>
+            <Label htmlFor="image">Image (facultatif)</Label>
             {event?.imageUrl && (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={event.imageUrl} alt="" className="mb-2 h-24 w-full rounded-lg object-cover" />
@@ -142,7 +142,7 @@ export default function EventDialog({ mode, event }: Props) {
               className="block w-full text-sm text-muted-foreground file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1.5 file:text-sm"
             />
             <p className="text-xs text-muted-foreground">
-              {event?.imageUrl ? "Upload a new file to replace the current image." : "JPG or PNG."}
+              {event?.imageUrl ? "Téléversez un nouveau fichier pour remplacer l'image actuelle." : "JPG ou PNG."}
             </p>
           </div>
 
@@ -153,14 +153,14 @@ export default function EventDialog({ mode, event }: Props) {
               defaultChecked={event ? event.published : true}
               className="size-4 rounded border-input"
             />
-            Published (visible on the public site)
+            Publié (visible sur le site public)
           </label>
 
           {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
 
           <DialogFooter>
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Saving..." : mode === "create" ? "Add event" : "Save changes"}
+              {isPending ? "Enregistrement..." : mode === "create" ? "Ajouter l'événement" : "Enregistrer"}
             </Button>
           </DialogFooter>
         </form>

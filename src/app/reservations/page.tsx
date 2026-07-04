@@ -52,11 +52,11 @@ export default function ReservationsPage() {
         >
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/80 backdrop-blur">
             <span className="size-2 rounded-full bg-[#c58d5a]" />
-            <span>MC27 Coffee — Reservations</span>
+            <span>MC27 Coffee — Réservations</span>
           </div>
-          <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">Reserve a table</h1>
+          <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">Réserver une table</h1>
           <p className="mt-3 text-white/70">
-            Tell us when you&apos;d like to visit. We&apos;ll email you a code to confirm your spot.
+            Dites-nous quand vous souhaitez venir. Nous vous enverrons un code par e-mail pour confirmer votre place.
           </p>
         </motion.div>
 
@@ -70,24 +70,24 @@ export default function ReservationsPage() {
             transition={{ duration: 0.35 }}
           >
           <FloatPanel>
-            <p className="text-sm text-[#c58d5a]">Step 1 of 2</p>
+            <p className="text-sm text-[#c58d5a]">Étape 1 sur 2</p>
             <h2 className="font-heading mt-1 flex items-center gap-2 text-xl text-white">
               <CalendarCheck className="size-5 text-[#c58d5a]" />
-              Reservation details
+              Détails de la réservation
             </h2>
 
             <form action={createFormAction} className="mt-6 space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <Label htmlFor="name" className="text-white/80">Name</Label>
-                    <Input id="name" name="name" placeholder="Jane Doe" required />
+                    <Label htmlFor="name" className="text-white/80">Nom</Label>
+                    <Input id="name" name="name" placeholder="Jean Dupont" required />
                     {createState?.fieldErrors?.name && (
                       <p className="text-xs text-red-300">{createState.fieldErrors.name[0]}</p>
                     )}
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="email" className="text-white/80">Email</Label>
-                    <Input id="email" name="email" type="email" placeholder="jane@example.com" required />
+                    <Input id="email" name="email" type="email" placeholder="jean@exemple.com" required />
                     {createState?.fieldErrors?.email && (
                       <p className="text-xs text-red-300">{createState.fieldErrors.email[0]}</p>
                     )}
@@ -96,14 +96,14 @@ export default function ReservationsPage() {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <Label htmlFor="phone" className="text-white/80">Phone</Label>
-                    <Input id="phone" name="phone" type="tel" placeholder="+1 555 123 4567" required />
+                    <Label htmlFor="phone" className="text-white/80">Téléphone</Label>
+                    <Input id="phone" name="phone" type="tel" placeholder="+216 12 345 678" required />
                     {createState?.fieldErrors?.phone && (
                       <p className="text-xs text-red-300">{createState.fieldErrors.phone[0]}</p>
                     )}
                   </div>
                   <div className="space-y-1.5">
-                    <Label htmlFor="partySize" className="text-white/80">Party size</Label>
+                    <Label htmlFor="partySize" className="text-white/80">Nombre de personnes</Label>
                     <Input id="partySize" name="partySize" type="number" min={1} max={20} defaultValue={2} required />
                     {createState?.fieldErrors?.partySize && (
                       <p className="text-xs text-red-300">{createState.fieldErrors.partySize[0]}</p>
@@ -120,7 +120,7 @@ export default function ReservationsPage() {
                     )}
                   </div>
                   <div className="space-y-1.5">
-                    <Label htmlFor="time" className="text-white/80">Time</Label>
+                    <Label htmlFor="time" className="text-white/80">Heure</Label>
                     <Input id="time" name="time" type="time" required />
                     {createState?.fieldErrors?.time && (
                       <p className="text-xs text-red-300">{createState.fieldErrors.time[0]}</p>
@@ -129,14 +129,14 @@ export default function ReservationsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label htmlFor="notes" className="text-white/80">Notes (optional)</Label>
-                  <Textarea id="notes" name="notes" placeholder="Window seat, allergies, celebration..." />
+                  <Label htmlFor="notes" className="text-white/80">Remarques (facultatif)</Label>
+                  <Textarea id="notes" name="notes" placeholder="Table près de la fenêtre, allergies, célébration..." />
                 </div>
 
                 {createState?.error && <p className="text-sm text-red-300">{createState.error}</p>}
 
                 <Button type="submit" disabled={isCreating} className="w-full bg-[#163b66] text-white hover:bg-[#102c4e]">
-                  {isCreating ? "Sending code..." : "Request reservation"}
+                  {isCreating ? "Envoi du code..." : "Demander la réservation"}
                 </Button>
             </form>
           </FloatPanel>
@@ -152,21 +152,21 @@ export default function ReservationsPage() {
             transition={{ duration: 0.35 }}
           >
           <FloatPanel>
-            <p className="text-sm text-[#c58d5a]">Step 2 of 2</p>
+            <p className="text-sm text-[#c58d5a]">Étape 2 sur 2</p>
             <h2 className="font-heading mt-1 flex items-center gap-2 text-xl text-white">
               <Mail className="size-5 text-[#c58d5a]" />
-              Confirm with your code
+              Confirmez avec votre code
             </h2>
 
             <p className="mt-4 text-sm text-white/70">
-              We sent a 6-digit code to <span className="text-white">{contact.email}</span>. Enter it below to
-              confirm your table.
+              Nous avons envoyé un code à 6 chiffres à <span className="text-white">{contact.email}</span>. Saisissez-le
+              ci-dessous pour confirmer votre table.
             </p>
 
             <form action={verifyFormAction} className="mt-4 space-y-4">
                 <input type="hidden" name="reservationId" value={reservationId} />
                 <div className="space-y-1.5">
-                  <Label htmlFor="code" className="text-white/80">6-digit code</Label>
+                  <Label htmlFor="code" className="text-white/80">Code à 6 chiffres</Label>
                   <Input
                     id="code"
                     name="code"
@@ -181,14 +181,14 @@ export default function ReservationsPage() {
                 {verifyState?.error && <p className="text-sm text-red-300">{verifyState.error}</p>}
 
                 <Button type="submit" disabled={isVerifying} className="w-full bg-[#163b66] text-white hover:bg-[#102c4e]">
-                  {isVerifying ? "Confirming..." : "Confirm reservation"}
+                  {isVerifying ? "Confirmation..." : "Confirmer la réservation"}
                 </Button>
             </form>
 
             <form action={resendFormAction} className="mt-2 flex flex-col items-center gap-2">
                 <input type="hidden" name="reservationId" value={reservationId} />
                 <Button type="submit" variant="ghost" disabled={isResending} className="text-white/70 hover:text-white">
-                  {isResending ? "Resending..." : "Resend code"}
+                  {isResending ? "Renvoi..." : "Renvoyer le code"}
                 </Button>
                 {resendState?.message && <p className="text-xs text-emerald-300">{resendState.message}</p>}
                 {resendState?.error && <p className="text-xs text-red-300">{resendState.error}</p>}
@@ -213,19 +213,19 @@ export default function ReservationsPage() {
               >
                 <ShieldCheck className="size-5 text-emerald-400" />
               </motion.span>
-              Table confirmed!
+              Table confirmée !
             </h2>
             <p className="mt-1 text-sm text-white/70">
-              A confirmation email is on its way to {contact.email}.
+              Un e-mail de confirmation est en route vers {contact.email}.
             </p>
 
             <div className="mt-6 space-y-2 text-sm text-white/80">
-              <p><strong className="text-white">Date:</strong> {verifyState.reservation.date}</p>
-              <p><strong className="text-white">Time:</strong> {verifyState.reservation.time}</p>
-              <p><strong className="text-white">Party size:</strong> {verifyState.reservation.partySize}</p>
+              <p><strong className="text-white">Date :</strong> {verifyState.reservation.date}</p>
+              <p><strong className="text-white">Heure :</strong> {verifyState.reservation.time}</p>
+              <p><strong className="text-white">Personnes :</strong> {verifyState.reservation.partySize}</p>
               <div className="pt-4">
                 <Link href="/spinwheel" className="text-[#c58d5a] underline underline-offset-4">
-                  While you&apos;re here, spin the wheel for a discount →
+                  Pendant que vous y êtes, tournez la roue pour une réduction →
                 </Link>
               </div>
             </div>

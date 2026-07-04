@@ -29,7 +29,7 @@ export async function submitContactMessage(
   try {
     await prisma.contactMessage.create({ data: parsed.data });
   } catch {
-    return { error: "Something went wrong sending your message. Please try again." };
+    return { error: "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer." };
   }
 
   return { success: true };

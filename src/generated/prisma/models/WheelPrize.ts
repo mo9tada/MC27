@@ -38,6 +38,7 @@ export type WheelPrizeSumAggregateOutputType = {
 
 export type WheelPrizeMinAggregateOutputType = {
   id: string | null
+  wheel: string | null
   label: string | null
   weight: number | null
   color: string | null
@@ -47,6 +48,7 @@ export type WheelPrizeMinAggregateOutputType = {
 
 export type WheelPrizeMaxAggregateOutputType = {
   id: string | null
+  wheel: string | null
   label: string | null
   weight: number | null
   color: string | null
@@ -56,6 +58,7 @@ export type WheelPrizeMaxAggregateOutputType = {
 
 export type WheelPrizeCountAggregateOutputType = {
   id: number
+  wheel: number
   label: number
   weight: number
   color: number
@@ -77,6 +80,7 @@ export type WheelPrizeSumAggregateInputType = {
 
 export type WheelPrizeMinAggregateInputType = {
   id?: true
+  wheel?: true
   label?: true
   weight?: true
   color?: true
@@ -86,6 +90,7 @@ export type WheelPrizeMinAggregateInputType = {
 
 export type WheelPrizeMaxAggregateInputType = {
   id?: true
+  wheel?: true
   label?: true
   weight?: true
   color?: true
@@ -95,6 +100,7 @@ export type WheelPrizeMaxAggregateInputType = {
 
 export type WheelPrizeCountAggregateInputType = {
   id?: true
+  wheel?: true
   label?: true
   weight?: true
   color?: true
@@ -191,6 +197,7 @@ export type WheelPrizeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 
 export type WheelPrizeGroupByOutputType = {
   id: string
+  wheel: string
   label: string
   weight: number
   color: string
@@ -223,6 +230,7 @@ export type WheelPrizeWhereInput = {
   OR?: Prisma.WheelPrizeWhereInput[]
   NOT?: Prisma.WheelPrizeWhereInput | Prisma.WheelPrizeWhereInput[]
   id?: Prisma.StringFilter<"WheelPrize"> | string
+  wheel?: Prisma.StringFilter<"WheelPrize"> | string
   label?: Prisma.StringFilter<"WheelPrize"> | string
   weight?: Prisma.IntFilter<"WheelPrize"> | number
   color?: Prisma.StringFilter<"WheelPrize"> | string
@@ -232,6 +240,7 @@ export type WheelPrizeWhereInput = {
 
 export type WheelPrizeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   label?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   color?: Prisma.SortOrder
@@ -244,6 +253,7 @@ export type WheelPrizeWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.WheelPrizeWhereInput | Prisma.WheelPrizeWhereInput[]
   OR?: Prisma.WheelPrizeWhereInput[]
   NOT?: Prisma.WheelPrizeWhereInput | Prisma.WheelPrizeWhereInput[]
+  wheel?: Prisma.StringFilter<"WheelPrize"> | string
   label?: Prisma.StringFilter<"WheelPrize"> | string
   weight?: Prisma.IntFilter<"WheelPrize"> | number
   color?: Prisma.StringFilter<"WheelPrize"> | string
@@ -253,6 +263,7 @@ export type WheelPrizeWhereUniqueInput = Prisma.AtLeast<{
 
 export type WheelPrizeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   label?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   color?: Prisma.SortOrder
@@ -270,6 +281,7 @@ export type WheelPrizeScalarWhereWithAggregatesInput = {
   OR?: Prisma.WheelPrizeScalarWhereWithAggregatesInput[]
   NOT?: Prisma.WheelPrizeScalarWhereWithAggregatesInput | Prisma.WheelPrizeScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"WheelPrize"> | string
+  wheel?: Prisma.StringWithAggregatesFilter<"WheelPrize"> | string
   label?: Prisma.StringWithAggregatesFilter<"WheelPrize"> | string
   weight?: Prisma.IntWithAggregatesFilter<"WheelPrize"> | number
   color?: Prisma.StringWithAggregatesFilter<"WheelPrize"> | string
@@ -279,6 +291,7 @@ export type WheelPrizeScalarWhereWithAggregatesInput = {
 
 export type WheelPrizeCreateInput = {
   id?: string
+  wheel?: string
   label: string
   weight?: number
   color?: string
@@ -288,6 +301,7 @@ export type WheelPrizeCreateInput = {
 
 export type WheelPrizeUncheckedCreateInput = {
   id?: string
+  wheel?: string
   label: string
   weight?: number
   color?: string
@@ -297,6 +311,7 @@ export type WheelPrizeUncheckedCreateInput = {
 
 export type WheelPrizeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  wheel?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
@@ -306,6 +321,7 @@ export type WheelPrizeUpdateInput = {
 
 export type WheelPrizeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  wheel?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
@@ -315,6 +331,7 @@ export type WheelPrizeUncheckedUpdateInput = {
 
 export type WheelPrizeCreateManyInput = {
   id?: string
+  wheel?: string
   label: string
   weight?: number
   color?: string
@@ -324,6 +341,7 @@ export type WheelPrizeCreateManyInput = {
 
 export type WheelPrizeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  wheel?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
@@ -333,6 +351,7 @@ export type WheelPrizeUpdateManyMutationInput = {
 
 export type WheelPrizeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  wheel?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
@@ -342,6 +361,7 @@ export type WheelPrizeUncheckedUpdateManyInput = {
 
 export type WheelPrizeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   label?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   color?: Prisma.SortOrder
@@ -356,6 +376,7 @@ export type WheelPrizeAvgOrderByAggregateInput = {
 
 export type WheelPrizeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   label?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   color?: Prisma.SortOrder
@@ -365,6 +386,7 @@ export type WheelPrizeMaxOrderByAggregateInput = {
 
 export type WheelPrizeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  wheel?: Prisma.SortOrder
   label?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   color?: Prisma.SortOrder
@@ -381,6 +403,7 @@ export type WheelPrizeSumOrderByAggregateInput = {
 
 export type WheelPrizeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  wheel?: boolean
   label?: boolean
   weight?: boolean
   color?: boolean
@@ -390,6 +413,7 @@ export type WheelPrizeSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type WheelPrizeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  wheel?: boolean
   label?: boolean
   weight?: boolean
   color?: boolean
@@ -399,6 +423,7 @@ export type WheelPrizeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
 
 export type WheelPrizeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  wheel?: boolean
   label?: boolean
   weight?: boolean
   color?: boolean
@@ -408,6 +433,7 @@ export type WheelPrizeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 
 export type WheelPrizeSelectScalar = {
   id?: boolean
+  wheel?: boolean
   label?: boolean
   weight?: boolean
   color?: boolean
@@ -415,13 +441,14 @@ export type WheelPrizeSelectScalar = {
   createdAt?: boolean
 }
 
-export type WheelPrizeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "label" | "weight" | "color" | "order" | "createdAt", ExtArgs["result"]["wheelPrize"]>
+export type WheelPrizeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "wheel" | "label" | "weight" | "color" | "order" | "createdAt", ExtArgs["result"]["wheelPrize"]>
 
 export type $WheelPrizePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "WheelPrize"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    wheel: string
     label: string
     weight: number
     color: string
@@ -851,6 +878,7 @@ export interface Prisma__WheelPrizeClient<T, Null = never, ExtArgs extends runti
  */
 export interface WheelPrizeFieldRefs {
   readonly id: Prisma.FieldRef<"WheelPrize", 'String'>
+  readonly wheel: Prisma.FieldRef<"WheelPrize", 'String'>
   readonly label: Prisma.FieldRef<"WheelPrize", 'String'>
   readonly weight: Prisma.FieldRef<"WheelPrize", 'Int'>
   readonly color: Prisma.FieldRef<"WheelPrize", 'String'>

@@ -29,13 +29,13 @@ export default function AdminLoginPage() {
           <CardDescription className="text-[#c58d5a]">MC27 Coffee</CardDescription>
           <CardTitle className="flex items-center gap-2 text-white">
             <Lock className="size-5 text-[#c58d5a]" />
-            Admin login
+            Connexion admin
           </CardTitle>
         </CardHeader>
         <CardContent>
           <form action={formAction} className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="password" className="text-white/80">Password</Label>
+              <Label htmlFor="password" className="text-white/80">Mot de passe</Label>
               <Input id="password" name="password" type="password" required autoFocus />
             </div>
 
@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
 
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
               <Button type="submit" disabled={isPending} className="w-full bg-[#163b66] text-white hover:bg-[#102c4e]">
-                {isPending ? "Signing in..." : "Sign in"}
+                {isPending ? "Connexion..." : "Se connecter"}
               </Button>
             </motion.div>
           </form>

@@ -23,7 +23,7 @@ export async function generateVoucherPdf(params: { name: string; prize: string; 
     color: ACCENT,
   });
 
-  page.drawText("Spin & Win Voucher", {
+  page.drawText("Bon Tournez & Gagnez", {
     x: 32,
     y: 164,
     size: 12,
@@ -39,7 +39,7 @@ export async function generateVoucherPdf(params: { name: string; prize: string; 
     color: WHITE,
   });
 
-  page.drawText(`Winner: ${params.name}`, {
+  page.drawText(`Gagnant : ${params.name}`, {
     x: 32,
     y: 86,
     size: 11,
@@ -47,7 +47,7 @@ export async function generateVoucherPdf(params: { name: string; prize: string; 
     color: WHITE,
   });
 
-  page.drawText(`Code: ${params.code}`, {
+  page.drawText(`Code : ${params.code}`, {
     x: 32,
     y: 64,
     size: 14,
@@ -55,7 +55,7 @@ export async function generateVoucherPdf(params: { name: string; prize: string; 
     color: ACCENT,
   });
 
-  page.drawText("Present this voucher at MC27 Coffee to redeem.", {
+  page.drawText("Présentez ce bon chez MC27 Coffee pour en profiter.", {
     x: 32,
     y: 36,
     size: 9,

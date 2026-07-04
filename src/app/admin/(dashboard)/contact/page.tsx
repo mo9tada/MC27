@@ -16,17 +16,17 @@ export default async function AdminContactPage() {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-2 space-y-6 duration-500">
-      <h1 className="text-3xl font-semibold tracking-tight">Contact Q&A</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Questions & réponses</h1>
 
       <div className="animate-in fade-in overflow-hidden rounded-xl border border-white/10 bg-[#102c4e]/60 backdrop-blur duration-500">
         <Table>
           <TableHeader>
             <TableRow className="border-white/10 hover:bg-transparent">
-              <TableHead className="text-white/70">From</TableHead>
-              <TableHead className="text-white/70">Subject</TableHead>
+              <TableHead className="text-white/70">De</TableHead>
+              <TableHead className="text-white/70">Sujet</TableHead>
               <TableHead className="text-white/70">Message</TableHead>
-              <TableHead className="text-white/70">Status</TableHead>
-              <TableHead className="text-white/70">Received</TableHead>
+              <TableHead className="text-white/70">Statut</TableHead>
+              <TableHead className="text-white/70">Reçu le</TableHead>
               <TableHead className="text-white/70">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -41,10 +41,10 @@ export default async function AdminContactPage() {
                 <TableCell className="max-w-[220px] truncate text-sm text-white/70">{message.message}</TableCell>
                 <TableCell>
                   <Badge variant={message.status === "answered" ? "secondary" : "outline"}>
-                    {message.status}
+                    {message.status === "answered" ? "Répondu" : "Nouveau"}
                   </Badge>
                 </TableCell>
-                <TableCell className="text-sm text-white/70">{message.createdAt.toLocaleDateString()}</TableCell>
+                <TableCell className="text-sm text-white/70">{message.createdAt.toLocaleDateString("fr-FR")}</TableCell>
                 <TableCell>
                   <ReplyDialog
                     id={message.id}
@@ -60,7 +60,7 @@ export default async function AdminContactPage() {
             {messages.length === 0 && (
               <TableRow className="border-white/10">
                 <TableCell colSpan={6} className="text-center text-white/50">
-                  No messages yet.
+                  Aucun message pour le moment.
                 </TableCell>
               </TableRow>
             )}

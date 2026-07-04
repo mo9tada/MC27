@@ -9,13 +9,13 @@ import { getUpcomingEvents } from "@/lib/events-data";
 export const dynamic = "force-dynamic";
 
 function formatDate(date: Date) {
-  const day = date.toLocaleDateString("en-US", {
+  const day = date.toLocaleDateString("fr-FR", {
     weekday: "short",
     day: "numeric",
     month: "short",
     year: "numeric",
   });
-  const time = date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+  const time = date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
   return `${day} · ${time}`;
 }
 
@@ -31,17 +31,17 @@ export default async function EventsPage() {
         <div className="mb-10 text-center">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/80 backdrop-blur">
             <span className="size-2 rounded-full bg-[#c58d5a]" />
-            <span>MC27 Coffee — What&apos;s on</span>
+            <span>MC27 Coffee — À l&apos;affiche</span>
           </div>
-          <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">Upcoming events</h1>
+          <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">Événements à venir</h1>
           <p className="mt-3 text-white/70">
-            Tastings, latte-art workshops, live music nights and more. Reserve your spot below.
+            Dégustations, ateliers de latte art, soirées musique live et plus encore. Réservez votre place ci-dessous.
           </p>
         </div>
 
         {events.length === 0 ? (
           <FloatPanel className="mx-auto max-w-md text-center">
-            <p className="text-white/80">No upcoming events right now — check back soon!</p>
+            <p className="text-white/80">Aucun événement à venir pour le moment — revenez bientôt !</p>
           </FloatPanel>
         ) : (
           <div className="grid gap-8 sm:grid-cols-2">
@@ -87,11 +87,11 @@ export default async function EventsPage() {
 
                     <div className="mt-5 flex items-center justify-between">
                       <span className="text-sm font-medium text-[#c58d5a] transition-transform group-hover:translate-x-1">
-                        View &amp; RSVP <ArrowRight className="ml-1 inline size-4" />
+                        Voir &amp; réserver <ArrowRight className="ml-1 inline size-4" />
                       </span>
                       {spotsLeft !== null && (
                         <span className={`text-xs ${isFull ? "text-red-300" : "text-white/60"}`}>
-                          {isFull ? "Fully booked" : `${spotsLeft} spots left`}
+                          {isFull ? "Complet" : `${spotsLeft} places restantes`}
                         </span>
                       )}
                     </div>

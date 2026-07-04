@@ -56,7 +56,7 @@ export async function createReservation(
   try {
     await sendOtpEmail(email, name, code);
   } catch {
-    return { error: "We couldn't send the confirmation email. Please try again." };
+    return { error: "Impossible d'envoyer l'e-mail de confirmation. Veuillez réessayer." };
   }
 
   return { reservationId: reservation.id, name, email };
@@ -80,7 +80,7 @@ export async function verifyReservationOtp(
   });
 
   if (!parsed.success) {
-    return { error: "Enter the 6-digit code." };
+    return { error: "Saisissez le code à 6 chiffres." };
   }
 
   const { reservationId, code } = parsed.data;
@@ -88,7 +88,7 @@ export async function verifyReservationOtp(
   const reservation = await prisma.reservation.findUnique({ where: { id: reservationId } });
 
   if (!reservation || !reservation.otpCodeHash || !reservation.otpExpiresAt) {
-    return { error: "Reservation not found. Please start again." };
+    return { error: "Réservation introuvable. Veuillez recommencer." };
   }
 
   if (reservation.verified) {
@@ -96,11 +96,11 @@ export async function verifyReservationOtp(
   }
 
   if (reservation.otpAttempts >= OTP_MAX_ATTEMPTS) {
-    return { error: "Too many attempts. Please request a new code." };
+    return { error: "Trop de tentatives. Veuillez demander un nouveau code." };
   }
 
   if (reservation.otpExpiresAt < new Date()) {
-    return { error: "This code has expired. Please request a new one." };
+    return { error: "Ce code a expiré. Veuillez en demander un nouveau." };
   }
 
   const isValid = await verifyOtp(code, reservation.otpCodeHash);
@@ -110,7 +110,7 @@ export async function verifyReservationOtp(
       where: { id: reservationId },
       data: { otpAttempts: { increment: 1 } },
     });
-    return { error: "That code is incorrect. Please try again." };
+    return { error: "Ce code est incorrect. Veuillez réessayer." };
   }
 
   const updated = await prisma.reservation.update({
@@ -120,7 +120,7 @@ export async function verifyReservationOtp(
 
   try {
     await sendReservationConfirmedEmail(updated.email, updated.name, {
-      date: updated.date.toLocaleDateString(),
+      date: updated.date.toLocaleDateString("fr-FR"),
       time: updated.time,
       partySize: updated.partySize,
     });
@@ -141,11 +141,11 @@ export async function resendOtp(
   const reservation = await prisma.reservation.findUnique({ where: { id: reservationId } });
 
   if (!reservation) {
-    return { error: "Reservation not found. Please start again." };
+    return { error: "Réservation introuvable. Veuillez recommencer." };
   }
 
   if (reservation.verified) {
-    return { message: "This reservation is already confirmed." };
+    return { message: "Cette réservation est déjà confirmée." };
   }
 
   const code = generateOtp();
@@ -160,15 +160,15 @@ export async function resendOtp(
   try {
     await sendOtpEmail(reservation.email, reservation.name, code);
   } catch {
-    return { error: "We couldn't resend the code. Please try again." };
+    return { error: "Impossible de renvoyer le code. Veuillez réessayer." };
   }
 
-  return { message: "A new code has been sent to your email." };
+  return { message: "Un nouveau code a été envoyé à votre adresse e-mail." };
 }
 
 function formatReservation(reservation: { date: Date; time: string; partySize: number }) {
   return {
-    date: reservation.date.toLocaleDateString(),
+    date: reservation.date.toLocaleDateString("fr-FR"),
     time: reservation.time,
     partySize: reservation.partySize,
   };
