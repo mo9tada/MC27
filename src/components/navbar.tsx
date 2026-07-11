@@ -52,8 +52,9 @@ export default function Navbar() {
                 }`}
             >
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Link href="/" className="font-heading text-lg font-semibold tracking-tight text-white">
-                        MC27
+                    <Link href="/" className="flex items-center">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/mc.png" alt="MC27 Coffee" className="h-9 w-auto object-contain" />
                     </Link>
                 </motion.div>
 
