@@ -11,10 +11,12 @@ export default function VideoBackground({
     <>
       <video
         className="fixed inset-0 -z-20 h-full w-full object-cover"
+        poster="/bg-poster.jpg"
         autoPlay
         muted
         loop
         playsInline
+        preload="metadata"
       >
         <source src="/bg.mp4" type="video/mp4" />
       </video>

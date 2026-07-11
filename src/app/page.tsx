@@ -196,19 +196,27 @@ export default function Home() {
             />
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-[#c58d5a]">L&apos;ambiance en direct</p>
-              <h2 className="font-heading mt-2 h-[2.6em] overflow-hidden text-3xl text-white sm:h-[1.3em] sm:text-4xl">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={currentLine}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -16 }}
-                    transition={{ duration: 0.45 }}
-                    className="block"
-                  >
-                    {rotatingLines[currentLine]}
-                  </motion.span>
-                </AnimatePresence>
+              <h2 className="font-heading mt-2 grid overflow-hidden text-3xl text-white sm:text-4xl">
+                {/* Invisible sizers reserve the tallest line's height at the current width, so no line is ever clipped. */}
+                {rotatingLines.map((line) => (
+                  <span key={line} aria-hidden className="invisible col-start-1 row-start-1 block">
+                    {line}
+                  </span>
+                ))}
+                <span className="col-start-1 row-start-1 block">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={currentLine}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -16 }}
+                      transition={{ duration: 0.45 }}
+                      className="block"
+                    >
+                      {rotatingLines[currentLine]}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
               </h2>
             </div>
           </div>
@@ -225,7 +233,7 @@ export default function Home() {
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="flex items-start gap-3 border-l border-white/10 pl-5 first:border-l-0 first:pl-0 sm:first:border-l sm:first:pl-5"
+                  className="flex items-start gap-3 border-white/10 sm:border-l sm:pl-5 sm:first:border-l-0 sm:first:pl-0"
                 >
                   <div className="relative grid size-11 shrink-0 place-items-center rounded-full bg-white/5">
                     <span aria-hidden className="absolute inset-0 rounded-full bg-[#c58d5a]/30 blur-lg" />

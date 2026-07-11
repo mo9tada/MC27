@@ -22,6 +22,7 @@ const navItems = [
     { href: "/contact", label: "Contact" },
     { href: "/spinwheel", label: "Roue" },
     { href: "/delivery-spinwheel", label: "Livraison" },
+    { href: "/menu", label: "Menu" },
 ];
 
 export default function Navbar() {

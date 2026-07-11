@@ -72,6 +72,7 @@ export default function ScrollVideo({
         <video
           className="fixed inset-0 -z-30 h-full w-full object-cover brightness-[0.55] saturate-[1.1]"
           src={baseSrc}
+          poster="/bg-poster.jpg"
           autoPlay
           muted
           loop
