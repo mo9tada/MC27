@@ -37,7 +37,7 @@ const highlights = [
 ];
 
 const stats = [
-  { value: "50+", label: "Articles au menu" },
+  { value: "140+", label: "Articles au menu" },
   { value: "4.7/5", label: "Note des clients" },
   { value: "1", label: "Tour gratuit par jour" },
 ];

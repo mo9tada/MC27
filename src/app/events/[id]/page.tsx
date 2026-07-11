@@ -2,8 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, MapPin, Ticket, Users } from "lucide-react";
 
-import Navbar from "@/components/navbar";
-import VideoBackground from "@/components/video-background";
 import { FloatPanel } from "@/components/float-panel";
 import { getEventForPublic } from "@/lib/events-data";
 
@@ -38,10 +36,6 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
   const isFull = spotsLeft !== null && spotsLeft === 0;
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden text-white">
-      <VideoBackground overlayClassName="bg-[linear-gradient(180deg,_rgba(7,21,38,0.9),_rgba(16,44,78,0.92))]" blobs />
-      <Navbar />
-
       <section className="relative z-10 mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         <Link
           href="/events"
@@ -114,6 +108,5 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           </FloatPanel>
         </div>
       </section>
-    </main>
   );
 }

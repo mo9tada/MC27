@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { CalendarDays, MapPin, Ticket, ArrowRight } from "lucide-react";
 
-import Navbar from "@/components/navbar";
-import VideoBackground from "@/components/video-background";
 import { FloatPanel } from "@/components/float-panel";
 import { getUpcomingEvents } from "@/lib/events-data";
 
@@ -23,10 +21,6 @@ export default async function EventsPage() {
   const events = await getUpcomingEvents();
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden text-white">
-      <VideoBackground overlayClassName="bg-[linear-gradient(180deg,_rgba(7,21,38,0.9),_rgba(16,44,78,0.92))]" blobs />
-      <Navbar />
-
       <section className="relative z-10 mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-10 text-center">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/80 backdrop-blur">
@@ -102,6 +96,5 @@ export default async function EventsPage() {
           </div>
         )}
       </section>
-    </main>
   );
 }
