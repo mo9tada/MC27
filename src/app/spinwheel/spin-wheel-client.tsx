@@ -29,7 +29,7 @@ function buildWheelBackground(prizes: WheelPrizeView[], sliceAngle: number) {
 }
 
 type SpinWheelClientProps = {
-  prizes: WheelPrizeView[];
+  initialPrizes?: WheelPrizeView[];
   wheel?: string;
   badge?: string;
   title?: string;
@@ -37,19 +37,33 @@ type SpinWheelClientProps = {
 };
 
 export default function SpinWheelClient({
-  prizes,
+  initialPrizes = [],
   wheel = "store",
   badge = "MC27 Coffee — Tournez & Gagnez",
   title = "Tournez pour gagner",
   subtitle = "Renseignez vos coordonnées et tournez la roue pour une réduction. Votre lot est accompagné d'un bon en PDF à télécharger.",
 }: SpinWheelClientProps) {
   const [state, formAction, isPending] = useActionState(spinWheel, undefined);
+  const [prizes, setPrizes] = useState<WheelPrizeView[]>(initialPrizes);
+  const [prizesLoading, setPrizesLoading] = useState(initialPrizes.length === 0);
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const timeoutRef = useRef<number | null>(null);
 
   const sliceAngle = prizes.length > 0 ? 360 / prizes.length : 360;
+
+  // The page ships as a static shell for instant navigation; prizes load here.
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(`/api/wheel/prizes?wheel=${wheel}`, { signal: controller.signal })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("Failed to load prizes"))))
+      .then((data: WheelPrizeView[]) => setPrizes(data))
+      .catch(() => {})
+      .finally(() => setPrizesLoading(false));
+
+    return () => controller.abort();
+  }, [wheel]);
 
   useEffect(() => {
     if (state?.segmentIndex === undefined) {
@@ -117,7 +131,20 @@ export default function SpinWheelClient({
           {subtitle}
         </motion.p>
 
-        {prizes.length === 0 ? (
+        {prizesLoading ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+            className="relative mt-10 flex flex-col items-center"
+          >
+            <div aria-hidden className="pointer-events-none absolute size-80 rounded-full bg-[#c58d5a]/20 blur-3xl sm:size-[26rem]" />
+            <div className="size-72 animate-pulse rounded-full bg-[conic-gradient(from_0deg,#8c5f39,#f7e0b5,#c58d5a,#f0c890,#8c5f39,#c58d5a,#f7e0b5,#8c5f39)] p-[7px] shadow-[0_10px_40px_-5px_rgba(0,0,0,0.6)] sm:size-80">
+              <div className="size-full rounded-full bg-[#0b1f38]/80 ring-2 ring-[#071526]/40" />
+            </div>
+            <p className="mt-6 text-sm text-white/60">Chargement de la roue...</p>
+          </motion.div>
+        ) : prizes.length === 0 ? (
           <FloatPanel className="mt-10 w-full max-w-md">
             <p className="text-white/80">La roue est en cours de mise à jour. Revenez bientôt.</p>
           </FloatPanel>

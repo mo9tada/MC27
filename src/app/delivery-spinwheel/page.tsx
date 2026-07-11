@@ -1,14 +1,10 @@
-import { getWheelPrizes } from "@/lib/wheel-data";
 import SpinWheelClient from "../spinwheel/spin-wheel-client";
 
-export const dynamic = "force-dynamic";
-
-export default async function DeliverySpinWheelPage() {
-  const prizes = await getWheelPrizes("delivery");
-
+// Static shell → instant navigation. Prizes are fetched client-side from
+// /api/wheel/prizes so this page never blocks on the database.
+export default function DeliverySpinWheelPage() {
   return (
     <SpinWheelClient
-      prizes={prizes.map((p) => ({ id: p.id, label: p.label, color: p.color }))}
       wheel="delivery"
       badge="MC27 Coffee — Récompenses Livraison"
       title="Roue de la livraison"
