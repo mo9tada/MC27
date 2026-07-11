@@ -139,8 +139,19 @@ export default function SpinWheelClient({
             className="relative mt-10 flex flex-col items-center"
           >
             <div aria-hidden className="pointer-events-none absolute size-80 rounded-full bg-[#c58d5a]/20 blur-3xl sm:size-[26rem]" />
-            <div className="size-72 animate-pulse rounded-full bg-[conic-gradient(from_0deg,#8c5f39,#f7e0b5,#c58d5a,#f0c890,#8c5f39,#c58d5a,#f7e0b5,#8c5f39)] p-[7px] shadow-[0_10px_40px_-5px_rgba(0,0,0,0.6)] sm:size-80">
-              <div className="size-full rounded-full bg-[#0b1f38]/80 ring-2 ring-[#071526]/40" />
+            <div className="relative size-72 sm:size-80">
+              {/* gold rim slowly spinning up */}
+              <div
+                className="absolute inset-0 animate-spin rounded-full bg-[conic-gradient(from_0deg,#8c5f39,#f7e0b5,#c58d5a,#f0c890,#8c5f39,#c58d5a,#f7e0b5,#8c5f39)] p-[7px] shadow-[0_10px_40px_-5px_rgba(0,0,0,0.6)]"
+                style={{ animationDuration: "4s" }}
+              >
+                <div className="size-full rounded-full bg-[#0b1f38]/80 ring-2 ring-[#071526]/40" />
+              </div>
+              {/* crisp loading circle in the center */}
+              <div
+                className="absolute left-1/2 top-1/2 size-16 -translate-x-1/2 -translate-y-1/2 animate-spin rounded-full border-4 border-white/10 border-t-[#f0c890]"
+                style={{ animationDuration: "0.9s" }}
+              />
             </div>
             <p className="mt-6 text-sm text-white/60">Chargement de la roue...</p>
           </motion.div>
