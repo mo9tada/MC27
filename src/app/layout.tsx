@@ -3,6 +3,7 @@ import { Fraunces, Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
+import SiteBackground from "@/components/site-background";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
       className={`${inter.variable} ${fraunces.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[#071526]/60">
+        <SiteBackground />
         {children}
         <Analytics />
         <Toaster />

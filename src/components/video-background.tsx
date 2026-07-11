@@ -7,19 +7,11 @@ export default function VideoBackground({
   overlayClassName = "bg-[linear-gradient(180deg,_rgba(7,21,38,0.82),_rgba(16,44,78,0.88))]",
   blobs = false,
 }: VideoBackgroundProps) {
+  // The background <video> now lives once in the root layout (SiteBackground) so
+  // it persists across navigations. This component only paints the per-page
+  // gradient overlay (+ optional decorative blobs) over that shared video.
   return (
     <>
-      <video
-        className="fixed inset-0 -z-20 h-full w-full object-cover"
-        poster="/bg-poster.jpg"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-      >
-        <source src="/bg.mp4" type="video/mp4" />
-      </video>
       <div className={`fixed inset-0 -z-10 ${overlayClassName}`} />
 
       {blobs && (
