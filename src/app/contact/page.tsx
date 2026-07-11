@@ -1,8 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { MessageCircleQuestion, CircleCheck } from "lucide-react";
+import { MessageCircleQuestion, CircleCheck, Phone, Share2 } from "lucide-react";
 
 import Navbar from "@/components/navbar";
 import VideoBackground from "@/components/video-background";
@@ -13,6 +13,50 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 import { submitContactMessage } from "./actions";
+
+// Lucide (this version) ships no brand icons, so the social marks are inline SVGs.
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d="M14 8.5V7c0-.7.3-1 1-1h1.5V3H14c-2.2 0-3.5 1.4-3.5 3.7v1.8H8V11h2.5v10H14V11h2.2l.4-2.5H14z" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className={className}
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="3.5" />
+      <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d="M16.7 3c.3 1.9 1.4 3.4 3.3 3.7v2.7c-1.2 0-2.4-.4-3.3-1v5.9c0 3-2.4 5.4-5.4 5.4s-5.4-2.4-5.4-5.4 2.4-5.4 5.4-5.4c.3 0 .5 0 .8.1v2.8c-.3-.1-.5-.1-.8-.1-1.4 0-2.6 1.2-2.6 2.6s1.2 2.6 2.6 2.6 2.6-1.2 2.6-2.6V3h2.4z" />
+    </svg>
+  );
+}
+
+// TODO: replace the hrefs and phone number with MC27's real accounts.
+const socials: { label: string; handle: string; href: string; Icon: ComponentType<{ className?: string }> }[] = [
+  { label: "Facebook", handle: "Club MC27", href: "https://www.facebook.com/clubmc27/", Icon: FacebookIcon },
+  { label: "Instagram", handle: "@club_mc27", href: "https://instagram.com/club_mc27/", Icon: InstagramIcon },
+  { label: "TikTok", handle: "@club.mc27", href: "https://tiktok.com/@club.mc27", Icon: TikTokIcon },
+  { label: "Téléphone", handle: "+216 21 414 040", href: "tel:+21621414040", Icon: Phone },
+];
 
 export default function ContactPage() {
   const [state, formAction, isPending] = useActionState(submitContactMessage, undefined);
@@ -37,6 +81,47 @@ export default function ContactPage() {
           <p className="mt-3 text-white/70">
             Posez-nous toutes vos questions — horaires, traiteur, événements privés. Notre équipe répond par e-mail.
           </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
+          className="mb-8"
+        >
+        <FloatPanel>
+          <p className="text-sm text-[#c58d5a]">Restons en contact</p>
+          <h2 className="font-heading mt-1 flex items-center gap-2 text-xl text-white">
+            <Share2 className="size-5 text-[#c58d5a]" />
+            Suivez-nous
+          </h2>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {socials.map(({ label, handle, href, Icon }) => {
+              const external = href.startsWith("http");
+              return (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 transition-colors hover:border-[#c58d5a]/40 hover:bg-white/10"
+                >
+                  <div className="relative grid size-11 shrink-0 place-items-center rounded-full bg-white/5">
+                    <span aria-hidden className="absolute inset-0 rounded-full bg-[#c58d5a]/30 blur-lg transition-colors group-hover:bg-[#c58d5a]/50" />
+                    <Icon className="relative size-5 text-[#c58d5a]" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-white">{label}</p>
+                    <p className="truncate text-xs text-white/60">{handle}</p>
+                  </div>
+                </motion.a>
+              );
+            })}
+          </div>
+        </FloatPanel>
         </motion.div>
 
         <motion.div
