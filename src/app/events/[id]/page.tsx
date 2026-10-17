@@ -1,13 +1,32 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, MapPin, Ticket, Users } from "lucide-react";
 
 import { FloatPanel } from "@/components/float-panel";
+import { JsonLd } from "@/components/json-ld";
 import { getEventForPublic } from "@/lib/events-data";
+import { eventJsonLd, excerpt, pageMetadata } from "@/lib/seo";
 
 import RsvpForm from "./rsvp-form";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const event = await getEventForPublic(id);
+
+  if (!event) {
+    return { title: "Événement introuvable", robots: { index: false, follow: true } };
+  }
+
+  return pageMetadata({
+    title: event.title,
+    description: excerpt(`${formatDate(event.date)} chez MC27 Coffee, Menzel Temime. ${event.description}`),
+    path: `/events/${event.id}`,
+    ...(event.imageUrl ? { image: { url: event.imageUrl, alt: event.title } } : {}),
+  });
+}
 
 function formatDate(date: Date) {
   const day = date.toLocaleDateString("fr-FR", {
@@ -37,6 +56,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
 
   return (
       <section className="relative z-10 mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+        <JsonLd data={eventJsonLd(event, { isFull })} />
         <Link
           href="/events"
           className="mb-6 inline-flex items-center gap-1.5 text-sm text-white/70 transition-colors hover:text-white"

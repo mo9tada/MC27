@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Menu } from "lucide-react";
@@ -53,8 +54,15 @@ export default function Navbar() {
             >
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Link href="/" className="flex items-center">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/mc.png" alt="MC27 Coffee" className="h-9 w-auto object-contain" />
+                        {/* next/image serves a ~36px WebP instead of the 500px, 95 KB PNG on every page. */}
+                        <Image
+                            src="/mc.png"
+                            alt="MC27 Coffee"
+                            width={36}
+                            height={36}
+                            loading="eager"
+                            className="h-9 w-9 object-contain"
+                        />
                     </Link>
                 </motion.div>
 

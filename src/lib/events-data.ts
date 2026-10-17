@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 
 function startOfToday() {
@@ -15,7 +16,8 @@ export async function getUpcomingEvents() {
   });
 }
 
-export async function getEventForPublic(id: string) {
+// Wrapped in React `cache` so generateMetadata and the page share one query.
+export const getEventForPublic = cache(async (id: string) => {
   const event = await prisma.event.findUnique({
     where: { id },
     include: { _count: { select: { attendees: true } } },
@@ -26,4 +28,4 @@ export async function getEventForPublic(id: string) {
   }
 
   return event;
-}
+});

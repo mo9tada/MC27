@@ -1,10 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CalendarDays, MapPin, Ticket, ArrowRight } from "lucide-react";
 
 import { FloatPanel } from "@/components/float-panel";
 import { getUpcomingEvents } from "@/lib/events-data";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Événements",
+  description:
+    "Dégustations, ateliers de latte art et soirées musique live chez MC27 Coffee à Menzel Temime. Découvrez les prochains événements et réservez votre place.",
+  path: "/events",
+});
 
 function formatDate(date: Date) {
   const day = date.toLocaleDateString("fr-FR", {
