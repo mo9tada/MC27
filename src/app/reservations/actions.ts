@@ -1,6 +1,8 @@
 "use server";
 
+import { after } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { notifyAdmins } from "@/lib/push";
 import { generateOtp, hashOtp, verifyOtp, OTP_TTL_MINUTES, OTP_MAX_ATTEMPTS } from "@/lib/otp";
 import { sendOtpEmail, sendReservationConfirmedEmail } from "@/lib/mailer";
 import { reservationSchema, otpSchema } from "@/lib/validation";
@@ -117,6 +119,14 @@ export async function verifyReservationOtp(
     where: { id: reservationId },
     data: { verified: true, status: "confirmed", otpCodeHash: null, otpExpiresAt: null },
   });
+
+  after(() =>
+    notifyAdmins({
+      title: "📅 Nouvelle réservation",
+      body: `${updated.name} · ${updated.partySize} pers. · ${updated.date.toLocaleDateString("fr-FR")} à ${updated.time}`,
+      url: "/admin/reservations",
+    })
+  );
 
   try {
     await sendReservationConfirmedEmail(updated.email, updated.name, {

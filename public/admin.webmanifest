@@ -1,0 +1,15 @@
+{
+  "name": "MC27 Admin",
+  "short_name": "MC27 Admin",
+  "description": "Tableau de bord MC27 Coffee",
+  "id": "/admin",
+  "start_url": "/admin",
+  "scope": "/admin",
+  "display": "standalone",
+  "background_color": "#071526",
+  "theme_color": "#0b1f38",
+  "icons": [
+    { "src": "/admin-icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/admin-icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,6 +1,18 @@
+import type { Metadata, Viewport } from "next";
 import { verifyAdminSession } from "@/lib/dal";
 import VideoBackground from "@/components/video-background";
 import AdminNav from "../admin-nav";
+
+export const metadata: Metadata = {
+  title: "MC27 Admin",
+  manifest: "/admin.webmanifest",
+  appleWebApp: { capable: true, title: "MC27 Admin", statusBarStyle: "black-translucent" },
+  icons: { apple: "/admin-icon-192.png" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0b1f38",
+};
 
 export default async function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   await verifyAdminSession();

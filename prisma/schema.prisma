@@ -93,3 +93,12 @@ model EventAttendee {
   @@unique([eventId, email])
   @@index([eventId])
 }
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  userAgent String?
+  createdAt DateTime @default(now())
+}

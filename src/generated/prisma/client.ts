@@ -71,3 +71,8 @@ export type Event = Prisma.EventModel
  * 
  */
 export type EventAttendee = Prisma.EventAttendeeModel
+/**
+ * Model PushSubscription
+ * 
+ */
+export type PushSubscription = Prisma.PushSubscriptionModel

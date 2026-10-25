@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import NotificationsCard from "./notifications/notifications-card";
 
 export default async function AdminOverviewPage() {
   const startOfDay = new Date();
@@ -36,6 +37,8 @@ export default async function AdminOverviewPage() {
           </Card>
         ))}
       </div>
+
+      <NotificationsCard />
     </div>
   );
 }

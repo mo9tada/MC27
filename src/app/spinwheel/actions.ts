@@ -1,6 +1,8 @@
 "use server";
 
+import { after } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { notifyAdmins } from "@/lib/push";
 import { wheelSchema } from "@/lib/validation";
 import { pickSegmentIndex, generateVoucherCode, normalizeWheel } from "@/lib/wheel";
 import { getWheelPrizes } from "@/lib/wheel-data";
@@ -76,6 +78,15 @@ export async function spinWheel(_prevState: SpinState, formData: FormData): Prom
   if (!spin) {
     return { error: "Une erreur est survenue. Veuillez réessayer." };
   }
+
+  const { name: spinName, prize: spinPrize } = spin;
+  after(() =>
+    notifyAdmins({
+      title: wheel === "delivery" ? "🎡 Roue livraison" : "🎡 Roue boutique",
+      body: `${spinName} a gagné : ${spinPrize}`,
+      url: "/admin/wheel",
+    })
+  );
 
   return { id: spin.id, name: spin.name, prize: spin.prize, code: spin.code, segmentIndex };
 }
