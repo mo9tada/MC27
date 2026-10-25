@@ -42,11 +42,11 @@ export async function unsubscribeAdminDevice(endpoint: string) {
 
 export async function sendTestNotification() {
   await verifyAdminSession();
-  await notifyAdmins({
+  const { delivered } = await notifyAdmins({
     title: "MC27 Admin",
     body: "Les notifications fonctionnent sur cet appareil ✅",
     url: "/admin",
     tag: "test",
   });
-  return { success: true };
+  return { delivered };
 }

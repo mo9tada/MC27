@@ -110,8 +110,12 @@ export default function NotificationsCard() {
   async function test() {
     setBusy(true);
     try {
-      await sendTestNotification();
-      toast.success("Notification de test envoyée");
+      const { delivered } = await sendTestNotification();
+      if (delivered > 0) {
+        toast.success(`Notification de test envoyée à ${delivered} appareil${delivered > 1 ? "s" : ""}`);
+      } else {
+        toast.error("Aucun appareil n'a reçu la notification — alerte envoyée par e-mail.");
+      }
     } finally {
       setBusy(false);
     }

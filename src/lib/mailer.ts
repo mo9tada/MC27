@@ -1,5 +1,6 @@
 import "server-only";
 import nodemailer from "nodemailer";
+import { absoluteUrl } from "@/lib/site";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -12,6 +13,11 @@ const transporter = nodemailer.createTransport({
 });
 
 const MAIL_FROM = process.env.MAIL_FROM ?? process.env.SMTP_USER;
+const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL ?? process.env.SMTP_USER;
+
+function escapeHtml(value: string) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
 
 export async function sendOtpEmail(to: string, name: string, code: string) {
   await transporter.sendMail({
@@ -63,6 +69,28 @@ export async function sendContactReplyEmail(to: string, name: string, subject: s
         <p>Bonjour ${name},</p>
         <p>${reply.replace(/\n/g, "<br/>")}</p>
         <p>— L'équipe MC27 Coffee</p>
+      </div>
+    `,
+  });
+}
+
+// Fallback for admin push notifications when no phone could be reached.
+export async function sendAdminAlertEmail(alert: { title: string; body: string; url?: string }) {
+  if (!ADMIN_EMAIL) return;
+
+  const link = absoluteUrl(alert.url ?? "/admin");
+
+  await transporter.sendMail({
+    from: MAIL_FROM,
+    to: ADMIN_EMAIL,
+    subject: `[MC27 Admin] ${alert.title}`,
+    priority: "high",
+    html: `
+      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
+        <h2 style="color:#163b66;">${escapeHtml(alert.title)}</h2>
+        <p style="font-size: 16px;">${escapeHtml(alert.body)}</p>
+        <p><a href="${link}" style="color:#163b66; font-weight: 600;">Ouvrir le tableau de bord</a></p>
+        <p style="color:#888; font-size: 12px;">Envoyé par e-mail car aucune notification mobile n'a pu être délivrée.</p>
       </div>
     `,
   });

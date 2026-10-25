@@ -4,13 +4,14 @@ self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (event) => event.waitUntil(self.clients.claim()));
 
 self.addEventListener("push", (event) => {
-  if (!event.data) return;
-
-  let data;
-  try {
-    data = event.data.json();
-  } catch {
-    data = { title: "MC27 Admin", body: event.data.text() };
+  // Always show a notification: iOS revokes push access for pushes that show nothing.
+  let data = { title: "MC27 Admin", body: "Nouvelle activité sur le site." };
+  if (event.data) {
+    try {
+      data = event.data.json();
+    } catch {
+      data = { title: "MC27 Admin", body: event.data.text() };
+    }
   }
 
   event.waitUntil(
@@ -20,7 +21,10 @@ self.addEventListener("push", (event) => {
       badge: "/admin-icon-192.png",
       tag: data.tag,
       renotify: Boolean(data.tag),
-      vibrate: [100, 50, 100],
+      requireInteraction: true, // stays on screen until the admin dismisses it
+      silent: false,
+      vibrate: [200, 100, 200, 100, 200],
+      timestamp: Date.now(),
       data: { url: data.url || "/admin" },
     })
   );
