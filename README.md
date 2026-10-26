@@ -1,4 +1,4 @@
-# Club MC27 — Venue Platform
+# MC27 Coffee — Café Platform
 
 ![Next.js](https://img.shields.io/badge/Next.js_16-000?logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React_19-20232a?logo=react&logoColor=61DAFB)
@@ -8,7 +8,13 @@
 
 **Live:** [mc-27.vercel.app](https://mc-27.vercel.app)
 
-The production website of Club MC27, a venue in Tunisia: guests book tables, follow events and spin a prize wheel, and the staff run everything from an admin dashboard. I build and maintain it as the club's software developer.
+The production website of MC27 Coffee, a café and pâtisserie in Menzel Temime, Tunisia: guests book tables, follow events and spin a prize wheel, and the staff run everything from an admin dashboard. I build and maintain it as the café's software developer.
+
+![MC27 Coffee home page](docs/home.jpg)
+
+| Prize wheel | Table reservation with email code |
+| --- | --- |
+| ![Prize wheel](docs/spin-wheel.jpg) | ![Reservation form](docs/reservations.jpg) |
 
 ## Features
 
