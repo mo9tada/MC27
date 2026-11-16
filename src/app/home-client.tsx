@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Coffee, Croissant, Disc3, Clock3, MapPin, CalendarCheck } from "lucide-react";
 
 import Navbar from "../components/navbar";
-import ScrollVideo from "../components/scroll-video";
 import { FloatPanel } from "@/components/float-panel";
 import { buttonVariants } from "@/components/ui/button";
 import { BUSINESS } from "@/lib/site";
@@ -100,13 +99,12 @@ export default function HomeClient() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden text-foreground">
-      {/* The looping bg.mp4 already plays site-wide (SiteBackground); this layer
-          dims it like the old duplicate copy did (brightness 0.55) without
-          downloading the video twice. */}
-      <div aria-hidden className="fixed inset-0 -z-30 bg-black/45" />
-      <ScrollVideo
-        src="/beans-scroll.mp4"
-        overlayClassName="bg-[linear-gradient(180deg,_rgba(7,21,38,0.5),_rgba(7,21,38,0.72))]"
+      {/* The looping bg.mp4 (the café itself) plays site-wide via SiteBackground.
+          On the home page it is the visible background: just a light navy
+          gradient on top so the hero text stays readable. */}
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 bg-[linear-gradient(180deg,_rgba(7,21,38,0.45),_rgba(7,21,38,0.7))]"
       />
 
       <motion.div
