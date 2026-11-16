@@ -104,18 +104,18 @@ export default function HomeClient() {
           gradient on top so the hero text stays readable. */}
       <div
         aria-hidden
-        className="fixed inset-0 -z-10 bg-[linear-gradient(180deg,_rgba(7,21,38,0.45),_rgba(7,21,38,0.7))]"
+        className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-lvh transform-gpu bg-[linear-gradient(180deg,_rgba(7,21,38,0.45),_rgba(7,21,38,0.7))]"
       />
 
       <motion.div
         aria-hidden
-        className="fixed -left-32 top-1/4 -z-10 size-72 rounded-full bg-[#c58d5a]/20 blur-3xl"
+        className="pointer-events-none transform-gpu fixed -left-32 top-1/4 -z-10 size-72 rounded-full bg-[#c58d5a]/20 blur-3xl"
         animate={{ y: [0, 30, 0], opacity: [0.5, 0.8, 0.5] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
-        className="fixed -right-24 top-1/2 -z-10 size-96 rounded-full bg-[#163b66]/30 blur-3xl"
+        className="pointer-events-none transform-gpu fixed -right-24 top-1/2 -z-10 size-96 rounded-full bg-[#163b66]/30 blur-3xl"
         animate={{ y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
