@@ -45,7 +45,7 @@ export function FloatPanel({ children, className, glow = "amber" }: FloatPanelPr
       <motion.div
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         whileHover={{ y: -4 }}
-        className="rounded-[2.5rem] bg-[#102c4e]/40 p-6 text-white shadow-[0_25px_70px_-15px_rgba(0,0,0,0.65)] backdrop-blur-2xl sm:p-8"
+        className="rounded-[2.5rem] bg-[#102c4e]/55 p-6 text-white shadow-[0_25px_70px_-15px_rgba(0,0,0,0.65)] backdrop-blur-md sm:bg-[#102c4e]/40 sm:p-8 sm:backdrop-blur-2xl"
       >
         {children}
       </motion.div>

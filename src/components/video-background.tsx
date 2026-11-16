@@ -12,18 +12,22 @@ export default function VideoBackground({
   // gradient overlay (+ optional decorative blobs) over that shared video.
   return (
     <>
-      <div className={`fixed inset-0 -z-10 ${overlayClassName}`} />
+      {/* Same fixed, non-resizing box as SiteBackground so the tint never
+          shifts against the video while the mobile toolbar collapses. */}
+      <div
+        className={`pointer-events-none fixed inset-x-0 top-0 -z-10 h-lvh transform-gpu ${overlayClassName}`}
+      />
 
       {blobs && (
         <>
           <div
             aria-hidden
-            className="animate-pulse fixed -left-32 top-1/4 -z-10 size-72 rounded-full bg-[#c58d5a]/20 blur-3xl"
+            className="pointer-events-none transform-gpu animate-pulse fixed -left-32 top-1/4 -z-10 size-72 rounded-full bg-[#c58d5a]/20 blur-3xl"
             style={{ animationDuration: "8s" }}
           />
           <div
             aria-hidden
-            className="animate-pulse fixed -right-24 top-1/2 -z-10 size-96 rounded-full bg-[#163b66]/30 blur-3xl"
+            className="pointer-events-none transform-gpu animate-pulse fixed -right-24 top-1/2 -z-10 size-96 rounded-full bg-[#163b66]/30 blur-3xl"
             style={{ animationDuration: "10s" }}
           />
         </>
